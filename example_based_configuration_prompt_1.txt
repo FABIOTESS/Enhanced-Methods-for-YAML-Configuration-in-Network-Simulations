@@ -1,0 +1,1 @@
+"Given this example: " + example.yaml + "create a new one with different setting. Do not provide explanations. do not prompt anything before hosts number"
