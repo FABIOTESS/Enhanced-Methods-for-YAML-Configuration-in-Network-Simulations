@@ -1,0 +1,4 @@
+This prompt enforces fine-tuning. Given a set of instructions, create a new YAML. Return YAML only. Write "understood" if the task is clear. 
+Do not output anything else. Ensure the Firewall dictionary contains two entries for each subnet connection in the network as defined by the network topology matrix. 
+Ensure that the number of rows in the topology adjacency matrix is equal to the number of subnets. It must follow this template. 
+Make sure YAML is not identical to any example provided.
