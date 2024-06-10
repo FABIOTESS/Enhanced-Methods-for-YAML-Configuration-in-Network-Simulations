@@ -1,0 +1,1 @@
+ "Given these instructions: " + f"Given these instructions: {instructions} I get this network: {example}" + "Learn this relationship and get ready to produce more of those." + "These configurations are successful:"+ previous_sucessfull_outputs
