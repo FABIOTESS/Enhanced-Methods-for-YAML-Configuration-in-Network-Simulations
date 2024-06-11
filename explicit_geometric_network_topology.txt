@@ -1,0 +1,1 @@
+ 'The sum of subnets must be equal to the number of hosts. The network topology must be represented by a matrix of dimensions (1 + len(subnets)) x (1 + len(subnets)).'
