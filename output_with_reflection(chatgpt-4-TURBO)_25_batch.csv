@@ -1,0 +1,2096 @@
+Prompt,Output,Status,Model
+"3 hosts  
+3 subnets  
+2 services  
+3 processes  
+2 os  
+3 exploits  
+2 privilege escalations","subnets: [1, 1, 1]
+topology: [
+    [1, 1, 0, 0],
+    [1, 1, 1, 1],
+    [0, 1, 1, 1],
+    [0, 1, 1, 1]
+]
+sensitive_hosts:
+    (2, 0): 100
+    (3, 0): 100
+os:
+    - linux
+    - windows
+services:
+    - ssh
+    - http
+processes:
+    - apache
+    - nginx
+    - mysql
+exploits:
+    e_ssh_linux:
+        service: ssh
+        os: linux
+        prob: 0.7
+        cost: 1
+        access: user
+    e_http_windows:
+        service: http
+        os: windows
+        prob: 0.6
+        cost: 1
+        access: user
+    e_mysql_linux:
+        process: mysql
+        os: linux
+        prob: 0.9
+        cost: 2
+        access: root
+privilege_escalation:
+    pe_nginx:
+        process: nginx
+        os: linux
+        prob: 0.8
+        cost: 1
+        access: root
+    pe_apache:
+        process: apache
+        os: windows
+        prob: 0.5
+        cost: 1
+        access: root
+service_scan_cost: 1
+os_scan_cost: 1
+subnet_scan_cost: 1
+process_scan_cost: 1
+host_configurations:
+    (1, 0):
+        os: linux
+        services: [ssh, http]
+        processes: [apache, mysql]
+        firewall:
+            (3, 0): [ssh, http]
+    (2, 0):
+        os: windows
+        services: [ssh, http]
+        processes: [nginx, apache]
+        firewall:
+            (1, 0): [http]
+    (3, 0):
+        os: linux
+        services: [ssh, http]
+        processes: [nginx, mysql]
+        firewall: {}
+firewall:
+    (0, 1): [ssh, http]
+    (1, 0): []
+    (1, 2): []
+    (2, 1): [ssh]
+    (1, 3): [ssh, http]
+    (3, 1): []
+    (2, 3): [http]
+    (3, 2): [ssh]
+step_limit: 1000",ERROR,CHATGPT-4-TURBO
+"3 hosts  
+3 subnets  
+2 services  
+3 processes  
+2 OS  
+3 exploits  
+2 privilege escalations","subnets: [1, 1, 1]
+topology: [[ 1, 1, 0],
+           [ 1, 1, 1],
+           [ 0, 1, 1]]
+sensitive_hosts:
+  (2, 0): 100
+os:
+  - linux
+  - windows
+services:
+  - ssh
+  - http
+processes:
+  - apache
+  - nginx
+  - sqlserver
+exploits:
+  e_ssh_linux:
+    service: ssh
+    os: linux
+    prob: 0.75
+    cost: 1
+    access: user
+  e_http_windows:
+    service: http
+    os: windows
+    prob: 0.7
+    cost: 1
+    access: user
+  e_ssh_windows:
+    service: ssh
+    os: windows
+    prob: 0.65
+    cost: 1
+    access: user
+privilege_escalation:
+  pe_nginx:
+    process: nginx
+    os: linux
+    prob: 0.95
+    cost: 1
+    access: root
+  pe_sqlserver:
+    process: sqlserver
+    os: windows
+    prob: 0.9
+    cost: 1
+    access: root
+service_scan_cost: 1
+os_scan_cost: 1
+subnet_scan_cost: 1
+process_scan_cost: 1
+host_configurations:
+  (1, 0):
+    os: linux
+    services: [ssh, http]
+    processes: [apache, ngin]
+  (2, 0):
+    os: windows
+    services: [ssh]
+    processes: [sqlserver]
+  (3, 0):
+    os: windows
+    services: [http]
+    processes: [nginx, sqlserver]
+firewall:
+  (0, 1): [ssh, http]
+  (1, 2): [ssh]
+step_limit: 1000",ERROR,CHATGPT-4-TURBO
+"3 hosts  
+3 subnets  
+2 services  
+3 processes  
+2 OSs  
+2 exploits  
+3 privilege escalations","subnets: [1, 1, 1]
+topology: [[1, 1, 0],
+           [1, 1, 1],
+           [0, 1, 1]]
+sensitive_hosts:
+  (1, 0): 100
+  (2, 0): 100
+  (3, 0): 100
+os:
+  - linux
+  - windows
+services:
+  - ssh
+  - http
+processes:
+  - apache
+  - nginx
+  - sqlserver
+exploits:
+  e_ssh:
+    service: ssh
+    os: linux
+    prob: 0.7
+    cost: 1
+    access: user
+  e_http:
+    service: http
+    os: windows
+    prob: 0.6
+    cost: 1
+    access: user
+privilege_escalation:
+  pe_apache:
+    process: apache
+    os: linux
+    prob: 0.8
+    cost: 1
+    access: root
+  pe_nginx:
+    process: nginx
+    os: linux
+    prob: 0.9
+    cost: 1
+    access: root
+  pe_sqlserver:
+    process: sqlserver
+    os: windows
+    prob: 0.7
+    cost: 1
+    access: admin
+service_scan_cost: 1
+os_scan_cost: 1
+subnet_scan_cost: 1
+process_scan_cost: 1
+host_configurations:
+  (1, 0):
+    os: linux
+    services: [ssh, http]
+    processes: [apache, nginx]
+    firewall:
+      (2, 0): [ssh, http]
+      (3, 0): [ssh, http]
+  (2, 0):
+    os: linux
+    services: [ssh, http]
+    processes: [apache, sqlserver]
+    firewall:
+      (1, 0): [ssh, http]
+      (3, 0): [ssh, http]
+  (3, 0):
+    os: windows
+    services: [ssh, http]
+    processes: [sqlserver]
+    firewall:
+      (1, 0): [ssh, http]
+      (2, 0): [ssh, http]
+firewall:
+  (0, 1): [ssh, http]
+  (1, 0): [] 
+  (1, 2): [ssh, http]
+  (2, 1): [] 
+  (2, 3): [ssh, http]
+  (3, 2): [] 
+step_limit: 1000",ERROR,CHATGPT-4-TURBO
+"3 hosts  
+3 subnets  
+1 service  
+2 processes  
+2 os  
+3 exploits  
+2 privilege escalations","subnets: [1, 1, 1]
+topology: [[1, 1, 0, 0],
+           [1, 1, 1, 1],
+           [0, 1, 1, 1],
+           [0, 1, 1, 1]]
+sensitive_hosts:
+  (2, 0): 100
+  (3, 0): 100
+os:
+  - linux
+  - windows
+services:
+  - ssh
+processes:
+  - nginx
+  - apache
+exploits:
+  e_ssh_linux:
+    service: ssh
+    os: linux
+    prob: 0.7
+    cost: 2
+    access: user
+  e_ssh_windows:
+    service: ssh
+    os: windows
+    prob: 0.7
+    cost: 2
+    access: user
+  e_nginx:
+    process: nginx
+    os: linux
+    prob: 0.6
+    cost: 3
+    access: admin
+privilege_escalation:
+  pe_nginx:
+    process: nginx
+    os: linux
+    prob: 0.9
+    cost: 2
+    access: root
+  pe_apache:
+    process: apache
+    os: windows
+    prob: 0.8
+    cost: 2
+    access: root
+service_scan_cost: 1
+os_scan_cost: 1
+subnet_scan_cost: 1
+process_scan_cost: 1
+host_configurations:
+  (1, 0):
+    os: linux
+    services: [ssh]
+    processes: [nginx]
+    firewall:
+      (3, 0): [ssh]
+  (2, 0):
+    os: windows
+    services: [ssh]
+    processes: [apache]
+    firewall:
+      (1, 0): [ssh]
+  (3, 0):
+    os: linux
+    services: [ssh]
+    processes: [nginx]
+firewall:
+  (0, 1): [ssh]
+  (1, 0): []
+  (1, 2): []
+  (2, 1): [ssh]
+  (1, 3): [ssh]
+  (3, 1): [ssh]
+  (2, 3): [ssh]
+  (3, 2): [ssh]
+step_limit: 1000",ERROR,CHATGPT-4-TURBO
+"3 hosts
+3 subnets
+2 services
+3 processes
+2 operating systems
+2 exploits
+2 privilege escalations","subnets: [1, 1, 1]
+topology: [[ 1, 1, 0, 0],
+           [ 1, 1, 1, 1],
+           [ 0, 1, 1, 1],
+           [ 0, 1, 1, 1]]
+sensitive_hosts:
+  (2, 0): 100
+  (3, 0): 100
+os:
+  - linux
+  - windows
+services:
+  - ssh
+  - ftp
+processes:
+  - tomcat
+  - nginx
+  - apache
+exploits:
+  e_ssh:
+    service: ssh
+    os: linux
+    prob: 0.8
+    cost: 1
+    access: user
+  e_ftp:
+    service: ftp
+    os: windows
+    prob: 0.75
+    cost: 1
+    access: user
+privilege_escalation:
+  pe_tomcat:
+    process: tomcat
+    os: linux
+    prob: 1.0
+    cost: 1
+    access: root
+  pe_nginx:
+    process: nginx
+    os: windows
+    prob: 0.9
+    cost: 1
+    access: admin
+service_scan_cost: 1
+os_scan_cost: 1
+subnet_scan_cost: 1
+process_scan_cost: 1
+host_configurations:
+  (1, 0):
+    os: linux
+    services: [ssh, ftp]
+    processes: [tomcat, nginx]
+    firewall:
+      (3, 0): [ssh, ftp]
+  (2, 0):
+    os: windows
+    services: [ssh, ftp]
+    processes: [nginx, apache]
+    firewall:
+      (1, 0): [ssh]
+  (3, 0):
+    os: windows
+    services: [ssh, ftp]
+    processes: [apache, nginx]
+firewall:
+  (0, 1): [ssh, ftp]
+  (1, 0): []
+  (1, 2): []
+  (2, 1): [ssh, ftp]
+  (1, 3): [ssh, ftp]
+  (3, 1): [ssh, ftp]
+  (2, 3): [ssh, ftp]
+  (3, 2): [ssh, ftp]
+step_limit: 1000",ERROR,CHATGPT-4-TURBO
+"3 hosts  
+3 subnets  
+2 services  
+2 processes  
+2 os  
+2 exploits  
+2 privilege escalations","subnets: [1, 1, 1]
+topology: [[1, 1, 0, 0],
+           [1, 1, 1, 1],
+           [0, 1, 1, 1],
+           [0, 1, 1, 1]]
+sensitive_hosts:
+  (2, 0): 100
+  (3, 0): 100
+os:
+  - linux
+  - windows
+services:
+  - ssh
+  - http
+processes:
+  - tomcat
+  - apache
+exploits:
+  e_ssh:
+    service: ssh
+    os: linux
+    prob: 0.8
+    cost: 1
+    access: user
+  e_http:
+    service: http
+    os: windows
+    prob: 0.7
+    cost: 1
+    access: user
+privilege_escalation:
+  pe_tomcat:
+    process: tomcat
+    os: linux
+    prob: 1.0
+    cost: 1
+    access: root
+  pe_apache:
+    process: apache
+    os: windows
+    prob: 0.9
+    cost: 1
+    access: root
+service_scan_cost: 1
+os_scan_cost: 1
+subnet_scan_cost: 1
+process_scan_cost: 1
+host_configurations:
+  (1, 0):
+    os: linux
+    services: [ssh, http]
+    processes: [tomcat, apache]
+    firewall:
+      (3, 0): [ssh, http]
+  (2, 0):
+    os: windows
+    services: [ssh, http]
+    processes: [tomcat, apache]
+    firewall:
+      (1, 0): [ssh, http]
+  (3, 0):
+    os: linux
+    services: [ssh, http]
+    processes: [tomcat, apache]
+firewall:
+  (0, 1): [ssh, http]
+  (1, 0): []
+  (1, 2): []
+  (2, 1): [ssh, http]
+  (1, 3): [ssh, http]
+  (3, 1): [ssh, http]
+  (2, 3): [ssh, http]
+  (3, 2): [ssh, http]
+step_limit: 1000",SUCCESS,CHATGPT-4-TURBO
+"3 hosts  
+3 subnets  
+2 services  
+3 processes  
+2 os  
+3 exploits  
+2 privilege escalations","subnets: [1, 1, 1]
+topology: [[1, 1, 0],
+           [1, 1, 1],
+           [0, 1, 1]]
+sensitive_hosts:
+  (2, 0): 80
+  (3, 0): 85
+os:
+  - linux
+  - windows
+services:
+  - ssh
+  - http
+processes:
+  - tomcat
+  - apache
+  - mysqld
+exploits:
+  e_ssh_linux:
+    service: ssh
+    os: linux
+    prob: 0.9
+    cost: 1
+    access: user
+  e_http_windows:
+    service: http
+    os: windows
+    prob: 0.85
+    cost: 1
+    access: user
+  e_ssh_windows:
+    service: ssh
+    os: windows
+    prob: 0.9
+    cost: 1
+    access: user
+privilege_escalation:
+  pe_mysqld_linux:
+    process: mysqld
+    os: linux
+    prob: 1.0
+    cost: 1
+    access: root
+  pe_apache_windows:
+    process: apache
+    os: windows
+    prob: 1.0
+    cost: 1
+    access: root
+service_scan_cost: 1
+os_scan_cost: 1
+subnet_scan_cost: 2
+process_scan_cost: 1
+host_configurations:
+  (1, 0):
+    os: linux
+    services: [ssh, http]
+    processes: [tomcat, mysqld]
+    firewall: {}
+  (2, 0):
+    os: windows
+    services: [ssh, http]
+    processes: [apache, mysqld]
+    firewall: {}
+  (3, 0):
+    os: linux
+    services: [ssh]
+    processes: [apache, tomcat]
+    firewall: {}
+firewall:
+  (0, 1): [ssh, http]
+  (1, 0): []
+  (1, 2): [http]
+  (2, 1): [ssh]
+step_limit: 1000",ERROR,CHATGPT-4-TURBO
+"3 hosts
+3 subnets
+2 services
+3 processes
+2 OS
+2 exploits
+2 privilege escalations","subnets: [1, 1, 1]
+topology: [[0, 1, 0, 0],
+           [1, 0, 1, 1],
+           [0, 1, 0, 1],
+           [0, 1, 1, 0]]
+sensitive_hosts:
+  (2, 0): 100
+  (3, 0): 100
+os:
+  - linux
+  - windows
+services:
+  - ssh
+  - http
+processes:
+  - tomcat
+  - apache
+  - nginx
+exploits:
+  e_ssh:
+    service: ssh
+    os: linux
+    prob: 0.9
+    cost: 2
+    access: user
+  e_http:
+    service: http
+    os: windows
+    prob: 0.85
+    cost: 3
+    access: user
+privilege_escalation:
+  pe_apache:
+    process: apache
+    os: linux
+    prob: 0.95
+    cost: 2
+    access: root
+  pe_nginx:
+    process: nginx
+    os: windows
+    prob: 0.9
+    cost: 2
+    access: admin
+service_scan_cost: 1
+os_scan_cost: 1
+subnet_scan_cost: 1
+process_scan_cost: 1
+host_configurations:
+  (1, 0):
+    os: linux
+    services: [ssh, http]
+    processes: [tomcat, apache]
+    firewall:
+      (3, 0): [ssh]
+  (2, 0):
+    os: windows
+    services: [http]
+    processes: [nginx]
+    firewall:
+      (1, 0): [http]
+  (3, 0):
+    os: windows
+    services: [http]
+    processes: [apache, nginx]
+firewall:
+  (0, 1): []
+  (1, 0): [ssh, http]
+  (1, 2): [http]
+  (2, 1): []
+  (1, 3): [ssh]
+  (3, 1): [http]
+  (2, 3): [http]
+  (3, 2): [http]
+step_limit: 1000",ERROR,CHATGPT-4-TURBO
+"3 hosts  
+3 subnets  
+2 services  
+3 processes  
+2 os  
+3 exploits  
+2 privilege escalations","subnets: [1, 1, 1]
+topology: [[ 1, 1, 0],
+           [ 1, 1, 1],
+           [ 0, 1, 1]]
+sensitive_hosts:
+  (2, 0): 100
+  (3, 0): 100
+os:
+  - linux
+  - windows
+services:
+  - ssh
+  - http
+processes:
+  - apache
+  - mysql
+  - ftpd
+exploits:
+  e_ssh:
+    service: ssh
+    os: linux
+    prob: 0.7
+    cost: 1
+    access: user
+  e_http:
+    service: http
+    os: windows
+    prob: 0.6
+    cost: 1
+    access: user
+  e_mysql:
+    service: mysql
+    os: linux
+    prob: 0.65
+    cost: 1
+    access: admin
+privilege_escalation:
+  pe_apache:
+    process: apache
+    os: linux
+    prob: 0.9
+    cost: 1
+    access: root
+  pe_ftpd:
+    process: ftpd
+    os: windows
+    prob: 0.85
+    cost: 1
+    access: system
+service_scan_cost: 1
+os_scan_cost: 1
+subnet_scan_cost: 1
+process_scan_cost: 1
+host_configurations:
+  (1, 0):
+    os: linux
+    services: [ssh, http]
+    processes: [apache, mysql]
+    firewall:
+      (3, 0): [ssh]
+  (2, 0):
+    os: windows
+    services: [http, ssh]
+    processes: [ftpd, mysql]
+    firewall:
+      (1, 0): [http]
+  (3, 0):
+    os: linux
+    services: [ssh, mysql]
+    processes: [apache, ftpd]
+firewall:
+  (0, 1): [ssh, http]
+  (1, 0): []
+  (1, 2): [ssh]
+  (2, 1): [http, ssh]
+step_limit: 1000",ERROR,CHATGPT-4-TURBO
+"3 hosts  
+3 subnets  
+2 services  
+2 processes  
+2 os  
+3 exploits  
+2 privilege escalations","subnets: [1, 1, 1]
+topology: [[0, 1, 0], 
+           [1, 0, 1], 
+           [0, 1, 0]]
+sensitive_hosts:
+  (1, 0): 100
+  (2, 0): 100
+os:
+  - linux
+  - windows
+services:
+  - ssh
+  - http
+processes:
+  - nginx
+  - apache
+exploits:
+  e_ssh_lin:
+    service: ssh
+    os: linux
+    prob: 0.7
+    cost: 2
+    access: user
+  e_http_win:
+    service: http
+    os: windows
+    prob: 0.65
+    cost: 2
+    access: user
+  e_ssh_win:
+    service: ssh
+    os: windows
+    prob: 0.6
+    cost: 3
+    access: user
+privilege_escalation:
+  pe_nginx:
+    process: nginx
+    os: linux
+    prob: 0.9
+    cost: 1
+    access: root
+  pe_apache:
+    process: apache
+    os: windows
+    prob: 0.85
+    cost: 1
+    access: root
+service_scan_cost: 2
+os_scan_cost: 2
+subnet_scan_cost: 2
+process_scan_cost: 2
+host_configurations:
+  (0, 0):
+    os: linux
+    services: [ssh, http]
+    processes: [nginx]
+    firewall:
+      (1, 0): [ssh, http]
+      (2, 0): []
+  (1, 0):
+    os: windows
+    services: [ssh]
+    processes: [apache]
+    firewall:
+      (0, 0): [ssh]
+      (2, 0): [ssh]
+  (2, 0):
+    os: linux
+    services: [http]
+    processes: [nginx]
+    firewall:
+      (0, 0): []
+      (1, 0): [http]
+step_limit: 1200",ERROR,CHATGPT-4-TURBO
+"3 hosts  
+3 subnets  
+2 services  
+3 processes  
+2 os  
+3 exploits  
+2 privilege escalations","subnets: [1, 1, 1]
+topology: [[ 0, 1, 0, 0],
+           [ 1, 1, 1, 1],
+           [ 0, 1, 1, 1],
+           [ 0, 1, 1, 1]]
+sensitive_hosts:
+  (2, 0): 100
+  (3, 0): 100
+os:
+  - linux
+  - windows
+services:
+  - ssh
+  - http
+processes:
+  - tomcat
+  - apache
+  - mysql
+exploits:
+  e_ssh:
+    service: ssh
+    os: linux
+    prob: 0.8
+    cost: 1
+    access: user
+  e_http:
+    service: http
+    os: windows
+    prob: 0.6
+    cost: 2
+    access: user
+  e_mysql:
+    service: mysql
+    os: linux
+    prob: 0.7
+    cost: 1
+    access: user
+privilege_escalation:
+  pe_tomcat:
+    process: tomcat
+    os: linux
+    prob: 1.0
+    cost: 1
+    access: root
+  pe_apache:
+    process: apache
+    os: windows
+    prob: 0.8
+    cost: 2
+    access: root
+service_scan_cost: 1
+os_scan_cost: 1
+subnet_scan_cost: 1
+process_scan_cost: 1
+host_configurations:
+  (1, 0):
+    os: linux
+    services: [ssh, http]
+    processes: [tomcat, mysql]
+    firewall:
+      (3, 0): [ssh, http]
+  (2, 0):
+    os: windows
+    services: [ssh, http]
+    processes: [apache, mysql]
+    firewall:
+      (1, 0): [ssh, http]
+  (3, 0):
+    os: linux
+    services: [http, mysql]
+    processes: [tomcat, apache]
+firewall:
+  (0, 1): [ssh, http]
+  (1, 0): [http]
+  (1, 2): [ssh, http]
+  (2, 1): [ssh, mysql]
+  (1, 3): [http, mysql]
+  (3, 1): [ssh, http]
+  (2, 3): [http, mysql]
+  (3, 2): [ssh]
+step_limit: 1000",ERROR,CHATGPT-4-TURBO
+"3 hosts
+3 subnets
+2 services
+3 processes
+2 os
+2 exploits
+2 privilege escalations","subnets: [1, 1, 1]
+topology: [[1, 1, 0, 0],
+           [1, 1, 1, 1],
+           [0, 1, 1, 1],
+           [0, 1, 1, 1]]
+sensitive_hosts:
+  (2, 0): 100
+  (3, 0): 100
+
+os:
+  - linux
+  - windows
+
+services:
+  - ssh
+  - http
+
+processes:
+  - apache
+  - nginx
+  - iis
+
+exploits:
+  e_ssh:
+    service: ssh
+    os: linux
+    prob: 0.8
+    cost: 2
+    access: user
+
+  e_http:
+    service: http
+    os: windows
+    prob: 0.7
+    cost: 3
+    access: admin
+
+privilege_escalation:
+  pe_apache:
+    process: apache
+    os: linux
+    prob: 0.9
+    cost: 2
+    access: root
+
+  pe_nginx:
+    process: nginx
+    os: windows
+    prob: 0.85
+    cost: 1
+    access: system
+
+service_scan_cost: 1
+os_scan_cost: 2
+subnet_scan_cost: 1
+process_scan_cost: 1
+
+host_configurations:
+  (1, 0):
+    os: linux
+    services: [ssh, http]
+    processes: [apache, nginx]
+    firewall:
+      (3, 0): [ssh, http]
+
+  (2, 0):
+    os: windows
+    services: [http]
+    processes: [nginx, iis]
+    firewall:
+      (1, 0): [ssh, http]
+
+  (3, 0):
+    os: linux
+    services: [ssh]
+    processes: [apache, iis]
+    firewall: {}
+
+# two row for each connection between subnets as defined by topology
+# one for each direction of connection
+# list which services to allow
+firewall:
+  (0, 1): [ssh, http]
+  (1, 0): []
+  (1, 2): []
+  (2, 1): [http]
+  (1, 3): [ssh]
+  (3, 1): [ssh, http]
+  (2, 3): [ssh, http]
+  (3, 2): [ssh]
+
+step_limit: 1000",ERROR,CHATGPT-4-TURBO
+"3 hosts  
+3 subnets  
+2 services  
+3 processes  
+2 os  
+2 exploits  
+2 privilege escalations","subnets: [1, 1, 1]
+topology: [[0, 1, 0, 0],
+           [1, 0, 1, 1],
+           [0, 1, 0, 1],
+           [0, 1, 1, 0]]
+sensitive_hosts:
+  (2, 0): 100
+  (3, 0): 85
+os:
+  - linux
+  - windows
+services:
+  - ssh
+  - http
+processes:
+  - tomcat
+  - apache
+  - nginx
+exploits:
+  e_ssh:
+    service: ssh
+    os: linux
+    prob: 0.8
+    cost: 1
+    access: user
+  e_http:
+    service: http
+    os: windows
+    prob: 0.75
+    cost: 1
+    access: user
+privilege_escalation:
+  pe_tomcat:
+    process: tomcat
+    os: linux
+    prob: 1.0
+    cost: 2
+    access: root
+  pe_apache:
+    process: apache
+    os: windows
+    prob: 0.9
+    cost: 2
+    access: root
+service_scan_cost: 1
+os_scan_cost: 1
+subnet_scan_cost: 1
+process_scan_cost: 1
+host_configurations:
+  (1, 0):
+    os: linux
+    services: [ssh]
+    processes: [tomcat, nginx]
+    firewall:
+      (3, 0): [ssh]
+  (2, 0):
+    os: windows
+    services: [http]
+    processes: [apache]
+    firewall:
+      (1, 0): [http]
+  (3, 0):
+    os: linux
+    services: [ssh]
+    processes: [apache, nginx]
+firewall:
+  (0, 1): []
+  (1, 0): [ssh]
+  (1, 2): [ssh]
+  (2, 1): [http]
+  (1, 3): []
+  (3, 1): []
+  (2, 3): []
+  (3, 2): []
+step_limit: 1000",SUCCESS,CHATGPT-4-TURBO
+"3 hosts
+3 subnets
+2 services
+2 processes
+2 os
+2 exploits
+2 privilege escalations","subnets: [1, 1, 1]
+topology: [[ 1, 1, 0, 0],
+           [ 1, 1, 1, 1],
+           [ 0, 1, 1, 1],
+           [ 0, 1, 1, 1]]
+sensitive_hosts:
+  (2, 0): 100
+  (3, 0): 100
+os:
+  - linux
+  - windows
+services:
+  - ssh
+  - http
+processes:
+  - tomcat
+  - apache
+exploits:
+  e_ssh:
+    service: ssh
+    os: linux
+    prob: 0.8
+    cost: 1
+    access: user
+  e_http:
+    service: http
+    os: windows
+    prob: 0.7
+    cost: 1
+    access: user
+privilege_escalation:
+  pe_tomcat:
+    process: tomcat
+    os: linux
+    prob: 1.0
+    cost: 1
+    access: root
+  pe_apache:
+    process: apache
+    os: windows
+    prob: 0.9
+    cost: 1
+    access: root
+service_scan_cost: 1
+os_scan_cost: 1
+subnet_scan_cost: 1
+process_scan_cost: 1
+host_configurations:
+  (1, 0):
+    os: linux
+    services: [ssh, http]
+    processes: [tomcat]
+    firewall:
+      (3, 0): [http]
+  (2, 0):
+    os: windows
+    services: [ssh, http]
+    processes: [apache]
+    firewall:
+      (1, 0): [ssh, http]
+  (3, 0):
+    os: linux
+    services: [ssh]
+    processes: [tomcat, apache]
+firewall:
+  (0, 1): [ssh, http]
+  (1, 0): []
+  (1, 2): [http]
+  (2, 1): [ssh]
+  (1, 3): [ssh, http]
+  (3, 1): []
+  (2, 3): [ssh]
+  (3, 2): [http]
+step_limit: 1000",SUCCESS,CHATGPT-4-TURBO
+"3 hosts
+3 subnets
+2 services
+3 processes
+2 os
+2 exploits
+2 privilege escalations","subnets: [1, 1, 1]
+topology: [[1, 1, 0, 0],
+           [1, 1, 1, 1],
+           [0, 1, 1, 1],
+           [0, 1, 1, 1]]
+sensitive_hosts:
+  (2, 0): 100
+  (3, 0): 100
+os:
+  - linux
+  - windows
+services:
+  - ssh
+  - http
+processes:
+  - apache
+  - nginx
+  - mysql
+exploits:
+  e_ssh:
+    service: ssh
+    os: linux
+    prob: 0.8
+    cost: 1
+    access: user
+  e_http:
+    service: http
+    os: windows
+    prob: 0.7
+    cost: 1
+    access: user 
+privilege_escalation:
+  pe_apache:
+    process: apache
+    os: linux
+    prob: 1.0
+    cost: 1
+    access: root
+  pe_mysql:
+    process: mysql
+    os: windows
+    prob: 0.9
+    cost: 1
+    access: root
+service_scan_cost: 1
+os_scan_cost: 1
+subnet_scan_cost: 1
+process_scan_cost: 1
+host_configurations:
+  (1, 0):
+    os: linux
+    services: [ssh, http]
+    processes: [apache, nginx]
+    firewall:
+      (3, 0): [ssh, http]
+  (2, 0):
+    os: windows
+    services: [ssh, http]
+    processes: [nginx, mysql]
+    firewall:
+      (1, 0): [ssh]
+  (3, 0):
+    os: linux
+    services: [http]
+    processes: [apache, mysql]
+    firewall:
+firewall:
+  (0, 1): [ssh, http]
+  (1, 0): []
+  (1, 2): []
+  (2, 1): [ssh, http]
+  (1, 3): [ssh, http]
+  (3, 1): [ssh, http]
+  (2, 3): [http]
+  (3, 2): [http]
+step_limit: 1000",ERROR,CHATGPT-4-TURBO
+"5 hosts  
+5 subnets  
+2 services  
+2 processes  
+2 os  
+3 exploits  
+2 privilege escalation","subnets: [1, 1, 1, 1, 1]
+topology: [[1, 1, 0, 0, 0],
+           [1, 1, 1, 0, 0],
+           [0, 1, 1, 1, 0],
+           [0, 0, 1, 1, 1],
+           [0, 0, 0, 1, 1]]
+sensitive_hosts:
+  (3, 0): 100
+  (4, 0): 150
+os:
+  - linux
+  - windows
+services:
+  - ssh
+  - http
+processes:
+  - apache
+  - nginx
+exploits:
+  e_ssh:
+    service: ssh
+    os: linux
+    prob: 0.75
+    cost: 2
+    access: user
+  e_http:
+    service: http
+    os: windows
+    prob: 0.65
+    cost: 2
+    access: user
+  e_apache:
+    service: http
+    os: linux
+    prob: 0.8
+    cost: 3
+    access: root
+privilege_escalation:
+  pe_nginx:
+    process: nginx
+    os: linux
+    prob: 0.9
+    cost: 2
+    access: root
+  pe_apache:
+    process: apache
+    os: windows
+    prob: 0.85
+    cost: 1
+    access: admin
+service_scan_cost: 2
+os_scan_cost: 2
+subnet_scan_cost: 2
+process_scan_cost: 2
+host_configurations:
+  (0, 0):
+    os: linux
+    services: [ssh, http]
+    processes: [apache]
+  (1, 0):
+    os: windows
+    services: [http]
+    processes: [nginx]
+  (2, 0):
+    os: linux
+    services: [ssh]
+    processes: [nginx, apache]
+  (3, 0):
+    os: windows
+    services: [http, ssh]
+    processes: [apache]
+  (4, 0):
+    os: linux
+    services: [ssh, http]
+    processes: [nginx]
+firewall:
+  (0, 1): [ssh]
+  (1, 0): []
+  (1, 2): [http]
+  (2, 1): [ssh, http]
+  (2, 3): [ssh]
+  (3, 2): [http]
+  (3, 4): [ssh, http]
+  (4, 3): [ssh]
+step_limit: 1000",ERROR,CHATGPT-4-TURBO
+"5 hosts  
+5 subnets  
+2 services  
+2 processes  
+2 OS  
+2 exploits  
+2 privilege escalations","subnets: [1, 1, 1, 1, 1]
+topology: [[0, 1, 0, 0, 0],
+           [1, 0, 1, 0, 0],
+           [0, 1, 0, 1, 0],
+           [0, 0, 1, 0, 1],
+           [0, 0, 0, 1, 0]]
+sensitive_hosts:
+  (4, 0): 100
+os:
+  - linux
+  - windows
+services:
+  - ssh
+  - http
+processes:
+  - tomcat
+  - nginx
+exploits:
+  e_ssh:
+    service: ssh
+    os: linux
+    prob: 0.8
+    cost: 1
+    access: user
+  e_http:
+    service: http
+    os: windows
+    prob: 0.75
+    cost: 1
+    access: user
+privilege_escalation:
+  pe_tomcat:
+    process: tomcat
+    os: linux
+    prob: 0.9
+    cost: 2
+    access: root
+  pe_nginx:
+    process: nginx
+    os: windows
+    prob: 0.85
+    cost: 2
+    access: admin
+service_scan_cost: 1
+os_scan_cost: 1
+subnet_scan_cost: 1
+process_scan_cost: 1
+host_configurations:
+  (0, 0):
+    os: linux
+    services: [ssh, http]
+    processes: [tomcat]
+    firewall:
+      (4, 0): [ssh]
+  (1, 0):
+    os: windows
+    services: [ssh]
+    processes: [nginx]
+    firewall:
+      (0, 0): [http]
+  (2, 0):
+    os: linux
+    services: [http]
+    processes: [tomcat]
+  (3, 0):
+    os: windows
+    services: [ssh, http]
+    processes: [nginx]
+    firewall:
+      (2, 0): [http]
+  (4, 0):
+    os: linux
+    services: [ssh]
+    processes: [tomcat]
+    firewall:
+      (3, 0): [ssh]
+# two row for each connection between subnets as defined by topology
+# one for each direction of connection
+# list which services to allow
+firewall:
+  (0, 1): [ssh, http]
+  (1, 0): []
+  (1, 2): [ssh]
+  (2, 1): [http]
+  (2, 3): []
+  (3, 2): [ssh, http]
+  (3, 4): [ssh]
+  (4, 3): [http]
+step_limit: 1000",ERROR,CHATGPT-4-TURBO
+"3 hosts
+3 subnets
+2 services
+2 processes
+2 OS
+3 exploits
+2 privilege escalations","subnets: [1, 1, 1]
+topology: 
+[
+  [1, 1, 0, 0],
+  [1, 1, 1, 1],
+  [0, 1, 1, 1],
+  [0, 1, 1, 1]
+]
+sensitive_hosts:
+  (2, 0): 100
+  (3, 0): 100
+
+os:
+  - linux
+  - windows
+
+services:
+  - ssh
+  - http
+
+processes:
+  - tomcat
+  - nginx
+
+exploits:
+  e_ssh_linux:
+    service: ssh
+    os: linux
+    prob: 0.8
+    cost: 1
+    access: user
+  e_http_windows:
+    service: http
+    os: windows
+    prob: 0.7
+    cost: 1
+    access: user
+  e_ssh_windows:
+    service: ssh
+    os: windows
+    prob: 0.6
+    cost: 1
+    access: user
+
+privilege_escalation:
+  pe_tomcat_linux:
+    process: tomcat
+    os: linux
+    prob: 1.0
+    cost: 1
+    access: root
+  pe_nginx_windows:
+    process: nginx
+    os: windows
+    prob: 0.9
+    cost: 1
+    access: root
+
+service_scan_cost: 1
+os_scan_cost: 1
+subnet_scan_cost: 1
+process_scan_cost: 1
+
+host_configurations:
+  (1, 0):
+    os: linux
+    services: [ssh, http]
+    processes: [tomcat, nginx]
+    firewall:
+      (3, 0): [ssh, http]
+
+  (2, 0):
+    os: windows
+    services: [ssh, http]
+    processes: [tomcat, nginx]
+    firewall:
+      (1, 0): [ssh, http]
+
+  (3, 0):
+    os: linux
+    services: [ssh, http]
+    processes: [tomcat, nginx]
+
+firewall:
+  (0, 1): [ssh, http]
+  (1, 0): []
+  (1, 2): [ssh, http]
+  (2, 1): []
+  (1, 3): [ssh]
+  (3, 1): [http]
+
+step_limit: 1000",ERROR,CHATGPT-4-TURBO
+"3 hosts  
+3 subnets  
+2 services  
+2 processes  
+2 os  
+2 exploits  
+2 privilege escalations","subnets: [1, 1, 1]
+topology: [[1, 1, 0],
+           [1, 1, 1],
+           [0, 1, 1]]
+sensitive_hosts:
+  (1, 0): 100
+  (2, 0): 100
+os:
+  - linux
+  - windows
+services:
+  - ssh
+  - http
+processes:
+  - apache
+  - nginx
+exploits:
+  e_ssh:
+    service: ssh
+    os: linux
+    prob: 0.8
+    cost: 1
+    access: user
+  e_http:
+    service: http
+    os: windows
+    prob: 0.7
+    cost: 1
+    access: user
+privilege_escalation:
+  pe_apache:
+    process: apache
+    os: linux
+    prob: 1.0
+    cost: 1
+    access: root
+  pe_nginx:
+    process: nginx
+    os: windows
+    prob: 0.9
+    cost: 1
+    access: admin
+service_scan_cost: 1
+os_scan_cost: 1
+subnet_scan_cost: 1
+process_scan_cost: 1
+host_configurations:
+  (0, 0):
+    os: linux
+    services: [ssh, http]
+    processes: [apache]
+    firewall:
+      (1, 0): [ssh]
+      (2, 0): []
+  (1, 0):
+    os: windows
+    services: [http]
+    processes: [nginx]
+    firewall:
+      (0, 0): [http]
+  (2, 0):
+    os: linux
+    services: [ssh]
+    processes: [apache]
+    firewall:
+      (1, 0): [ssh]
+firewall:
+  (0, 1): [ssh, http]
+  (1, 0): []
+  (1, 2): [http]
+  (2, 1): [ssh]
+step_limit: 1000",ERROR,CHATGPT-4-TURBO
+"3 hosts
+3 subnets
+5 services
+3 processes
+2 operating systems
+2 exploits
+3 privilege escalations","subnets: [1, 1, 1]
+topology: [
+    [1, 1, 0],
+    [1, 1, 1],
+    [0, 1, 1]
+]
+os:
+  - linux
+  - windows
+services:
+  - ssh
+  - http
+  - smtp
+  - ftp
+  - dns
+processes:
+  - apache
+  - nginx
+  - iis
+exploits:
+  e_ssh:
+    service: ssh
+    os: linux
+    prob: 0.8
+    cost: 1
+    access: user
+  e_http:
+    service: http
+    os: windows
+    prob: 0.7
+    cost: 1
+    access: user
+privilege_escalation:
+  pe_apache:
+    process: apache
+    os: linux
+    prob: 0.9
+    cost: 1
+    access: root
+  pe_nginx:
+    process: nginx
+    os: linux
+    prob: 0.8
+    cost: 1
+    access: root
+  pe_iis:
+    process: iis
+    os: windows
+    prob: 0.95
+    cost: 1
+    access: root
+service_scan_cost: 1
+os_scan_cost: 1
+subnet_scan_cost: 1
+process_scan_cost: 1
+host_configurations:
+  (0, 1):
+    os: linux
+    services: [ssh, http, smtp]
+    processes: [apache, nginx]
+    firewall: []
+  (1, 2):
+    os: windows
+    services: [ftp, dns, http]
+    processes: [iis]
+    firewall: []
+  (2, 0):
+    os: linux
+    services: [ssh, smtp]
+    processes: [apache]
+    firewall: []
+
+firewall:
+  (0, 1): [ssh, smtp, http]
+  (1, 0): [http, dns]
+  (1, 2): [ftp, http]
+  (2, 1): [smpt, dns]
+  (2, 0): [ssh, smtp]
+  (0, 2): [smtp]
+step_limit: 1000",ERROR,CHATGPT-4-TURBO
+"3 hosts
+3 subnets
+2 services
+3 processes
+2 operating systems
+2 exploits
+2 privilege escalations","subnets: [1, 1, 1]
+topology: [[1, 1, 0, 0],
+           [1, 1, 1, 1],
+           [0, 1, 1, 1],
+           [0, 1, 1, 1]]
+sensitive_hosts:
+  (2, 0): 100
+  (3, 0): 100
+os:
+  - linux
+  - windows
+services:
+  - ssh
+  - http
+processes:
+  - tomcat
+  - apache
+  - nginx
+exploits:
+  e_ssh:
+    service: ssh
+    os: linux
+    prob: 0.8
+    cost: 1
+    access: user
+  e_http:
+    service: http
+    os: windows
+    prob: 0.7
+    cost: 1
+    access: user
+privilege_escalation:
+  pe_tomcat:
+    process: tomcat
+    os: linux
+    prob: 1.0
+    cost: 1
+    access: root
+  pe_apache:
+    process: apache
+    os: windows
+    prob: 0.9
+    cost: 2
+    access: admin
+service_scan_cost: 1
+os_scan_cost: 1
+subnet_scan_cost: 1
+process_scan_cost: 1
+host_configurations:
+  (1, 0):
+    os: linux
+    services: [ssh, http]
+    processes: [tomcat, apache]
+    firewall:
+      (3, 0): [ssh, http]
+  (2, 0):
+    os: windows
+    services: [ssh, http]
+    processes: [apache, nginx]
+    firewall:
+      (1, 0): [ssh, http]
+  (3, 0):
+    os: windows
+    services: [ssh, http]
+    processes: [nginx, apache]
+firewall:
+  (0, 1): [ssh, http]
+  (1, 0): []
+  (1, 2): []
+  (2, 1): [ssh, http]
+  (1, 3): [ssh, http]
+  (3, 1): [ssh, http]
+  (2, 3): [ssh, http]
+  (3, 2): [ssh, http]
+step_limit: 1000",ERROR,CHATGPT-4-TURBO
+"3 hosts  
+3 subnets  
+2 services  
+3 processes  
+2 operating systems  
+2 exploits  
+2 privilege escalations","subnets: [1, 1, 1]
+topology: [[1, 1, 0], 
+           [1, 1, 1], 
+           [0, 1, 1]]
+sensitive_hosts:
+  (2, 0): 100
+os:
+  - linux
+  - windows
+services:
+  - ssh
+  - http
+processes:
+  - tomcat
+  - nginx
+  - apache
+exploits:
+  e_ssh:
+    service: ssh
+    os: linux
+    prob: 0.8
+    cost: 1
+    access: user
+  e_http:
+    service: http
+    os: windows
+    prob: 0.7
+    cost: 2
+    access: user
+privilege_escalation:
+  pe_tomcat:
+    process: tomcat
+    os: linux
+    prob: 1.0
+    cost: 1
+    access: root
+  pe_nginx:
+    process: nginx
+    os: windows
+    prob: 0.9
+    cost: 2
+    access: root
+service_scan_cost: 1
+os_scan_cost: 1
+subnet_scan_cost: 1
+process_scan_cost: 1
+host_configurations:
+  (1, 0):
+    os: linux
+    services: [ssh]
+    processes: [tomcat, nginx]
+    firewall:
+      (2, 0): [ssh, http]
+  (2, 0):
+    os: windows
+    services: [http]
+    processes: [apache, nginx]
+    firewall:
+      (1, 0): [http]
+  (3, 0):
+    os: linux
+    services: [ssh, http]
+    processes: [tomcat, apache]
+firewall:
+  (0, 1): [ssh, http]
+  (1, 0): []
+  (1, 2): [http]
+  (2, 1): [ssh, http]
+step_limit: 1000",ERROR,CHATGPT-4-TURBO
+"3 hosts  
+3 subnets  
+2 services  
+2 processes  
+2 OS  
+2 exploits  
+2 privilege escalation methods","subnets: [1, 1, 1]
+topology: [[1, 1, 0, 0],
+           [1, 1, 1, 1],
+           [0, 1, 1, 1],
+           [0, 1, 1, 1]]
+sensitive_hosts:
+  (2, 0): 100
+  (3, 0): 100
+os:
+  - linux
+  - windows
+services:
+  - ssh
+  - http
+processes:
+  - apache
+  - iis
+exploits:
+  e_ssh:
+    service: ssh
+    os: linux
+    prob: 0.8
+    cost: 1
+    access: user
+  e_http:
+    service: http
+    os: windows
+    prob: 0.7
+    cost: 1
+    access: user
+privilege_escalation:
+  pe_apache:
+    process: apache
+    os: linux
+    prob: 1.0
+    cost: 2
+    access: root
+  pe_iis:
+    process: iis
+    os: windows
+    prob: 0.9
+    cost: 2
+    access: admin
+service_scan_cost: 1
+os_scan_cost: 1
+subnet_scan_cost: 1
+process_scan_cost: 1
+host_configurations:
+  (1, 0):
+    os: linux
+    services: [ssh, http]
+    processes: [apache]
+    firewall:
+      (3, 0): [ssh, http]
+  (2, 0):
+    os: windows
+    services: [ssh, http]
+    processes: [iis]
+    firewall:
+      (1, 0): [ssh, http]
+  (3, 0):
+    os: linux
+    services: [ssh, http]
+    processes: [apache]
+firewall:
+  (0, 1): [ssh, http]
+  (1, 0): []
+  (1, 2): []
+  (2, 1): [ssh, http]
+  (1, 3): [ssh, http]
+  (3, 1): [ssh, http]
+  (2, 3): [ssh, http]
+  (3, 2): [ssh, http]
+step_limit: 1000",ERROR,CHATGPT-4-TURBO
+"3 hosts  
+3 subnets  
+2 services  
+3 processes  
+2 operating systems  
+2 exploits  
+2 privilege escalations","subnets: [1, 1, 1]
+topology: [[0, 1, 0],
+           [1, 0, 1],
+           [0, 1, 0]]
+sensitive_hosts:
+  (2, 0): 120
+  (1, 0): 150
+os:
+  - linux
+  - windows  
+services:
+  - ssh
+  - ftp
+processes:
+  - httpd
+  - nginx
+  - sshd
+exploits:
+  e_ssh:
+    service: ssh
+    os: linux
+    prob: 0.6
+    cost: 1
+    access: user
+  e_ftp:
+    service: ftp
+    os: windows
+    prob: 0.7
+    cost: 2
+    access: admin
+privilege_escalation:
+  pe_httpd:
+    process: httpd
+    os: linux
+    prob: 0.9
+    cost: 1
+    access: root
+  pe_nginx:
+    process: nginx
+    os: windows
+    prob: 0.8
+    cost: 2
+    access: system
+service_scan_cost: 2
+os_scan_cost: 1
+subnet_scan_cost: 1
+process_scan_cost: 2
+host_configurations:
+  (0, 0):
+    os: linux
+    services: [ssh, ftp]
+    processes: [httpd, sshd]
+    firewall:
+      (1, 0): [ftp]
+      (2, 0): [ssh]
+  (1, 0):
+    os: windows
+    services: [ftp]
+    processes: [nginx, httpd]
+    firewall:
+      (0, 0): [ssh]
+  (2, 0):
+    os: windows
+    services: [ssh, ftp]
+    processes: [nginx, sshd]
+    firewall:
+      (1, 0): []
+# two row for each connection between subnets as defined by topology
+# one for each direction of connection
+# list which services to allow
+firewall:
+  (0, 1): [ssh]
+  (1, 0): [ftp]
+  (1, 2): [ftp, ssh]
+  (2, 1): [ssh]
+step_limit: 1000",ERROR,CHATGPT-4-TURBO
+"3 hosts
+3 subnets
+2 services
+3 processes
+2 operating systems
+2 exploits
+2 privilege escalations","subnets: [1, 1, 1]
+topology: [[0, 1, 1],
+           [1, 0, 1],
+           [1, 1, 0]]
+sensitive_hosts:
+  (1, 0): 50
+  (2, 0): 50
+  (3, 0): 50
+os:
+  - linux
+  - windows
+services:
+  - ssh
+  - ftp
+processes:
+  - apache
+  - nginx
+  - mysql
+exploits:
+  e_ssh:
+    service: ssh
+    os: linux
+    prob: 0.9
+    cost: 1
+    access: user
+  e_ftp:
+    service: ftp
+    os: windows
+    prob: 0.8
+    cost: 1
+    access: user
+privilege_escalation:
+  pe_apache:
+    process: apache
+    os: linux
+    prob: 0.95
+    cost: 1
+    access: root
+  pe_mysql:
+    process: mysql
+    os: windows
+    prob: 0.9
+    cost: 1
+    access: admin
+service_scan_cost: 1
+os_scan_cost: 1
+subnet_scan_cost: 1
+process_scan_cost: 1
+host_configurations:
+  (1, 0):
+    os: linux
+    services: [ssh, ftp]
+    processes: [apache, nginx]
+  (2, 0):
+    os: windows
+    services: [ssh, ftp]
+    processes: [nginx, mysql]
+  (3, 0):
+    os: linux
+    services: [ssh]
+    processes: [apache, mysql]
+firewall:
+  (0, 1): [ssh, ftp]
+  (1, 0): [ssh]
+  (1, 2): [ftp]
+  (2, 1): [ssh]
+  (0, 2): [ssh]
+  (2, 0): [ftp]
+step_limit: 500",ERROR,CHATGPT-4-TURBO
