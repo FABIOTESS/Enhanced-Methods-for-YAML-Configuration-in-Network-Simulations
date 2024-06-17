@@ -1,0 +1,5140 @@
+Configuration,Status
+"subnets: [1, 1, 1, 1, 1, 1, 1]
+topology: [
+  [0, 1, 0, 0, 1, 0, 0, 1],
+  [1, 0, 1, 0, 0, 1, 0, 0],
+  [0, 1, 0, 1, 0, 0, 1, 0],
+  [0, 0, 1, 0, 1, 0, 0, 1],
+  [1, 0, 0, 1, 0, 1, 0, 0],
+  [0, 1, 0, 0, 1, 0, 1, 0],
+  [0, 0, 1, 0, 0, 1, 0, 1],
+  [1, 0, 0, 1, 0, 0, 1, 0]
+]
+sensitive_hosts:
+  (4, 0): 100
+  (5, 0): 100
+  (7, 0): 100
+os:
+  - linux
+  - windows
+services:
+  - ssh
+  - apache
+processes:
+  - tomcat
+  - nginx
+  - iis
+exploits:
+  e_ssh:
+    service: ssh
+    os: linux
+    prob: 0.75
+    cost: 2
+    access: user
+  e_apache:
+    service: apache
+    os: linux
+    prob: 0.65
+    cost: 3
+    access: admin
+privilege_escalation:
+  pe_nginx:
+    process: nginx
+    os: linux
+    prob: 0.9
+    cost: 2
+    access: root
+  pe_iis:
+    process: iis
+    os: windows
+    prob: 0.85
+    cost: 2
+    access: system
+service_scan_cost: 2
+os_scan_cost: 2
+subnet_scan_cost: 2
+process_scan_cost: 2
+host_configurations:
+  (1, 0):
+    os: windows
+    services: [ssh, apache]
+    processes: [iis]
+    firewall:
+      (3, 0): [ssh]
+  (2, 0):
+    os: linux
+    services: [apache]
+    processes: [nginx]
+    firewall:
+      (1, 0): [ssh]
+  (3, 0):
+    os: linux
+    services: [ssh]
+    processes: [nginx, tomcat]
+  (4, 0):
+    os: windows
+    services: [apache]
+    processes: [iis]
+  (5, 0):
+    os: linux
+    services: [ssh, apache]
+    processes: [tomcat, nginx]
+  (6, 0):
+    os: windows
+    services: [apache]
+    processes: [iis, tomcat]
+  (7, 0):
+    os: linux
+    services: [ssh]
+    processes: [nginx]
+firewall:
+  (0, 1): [ssh]
+  (1, 0): [apache]
+  (1, 2): [ssh]
+  (2, 1): [apache]
+  (1, 3): [apache]
+  (3, 1): [ssh]
+  (2, 3): [ssh]
+  (3, 2): [apache]
+  (4, 5): [apache]
+  (5, 4): [ssh]
+  (5, 6): [apache, ssh]
+  (6, 5): [apache]
+  (7, 6): [ssh]
+  (6, 7): [apache]
+step_limit: 1500",Error
+"subnets: [1, 1, 1, 1, 1]
+topology: [[ 1, 1, 0, 1, 0, 0],
+           [ 1, 1, 0, 0, 0, 0],
+           [ 0, 0, 1, 0, 0, 0],
+           [ 1, 0, 0, 1, 0, 0],
+           [ 0, 0, 0, 0, 1, 0],
+           [ 0, 0, 0, 0, 0, 1]]
+sensitive_hosts:
+  (2, 0): 100
+  (3, 0): 100
+  (4, 0): 100
+  (5, 0): 100
+os:
+  - linux
+  - windows
+services:
+  - web
+  - database
+processes:
+  - process_1
+  - process_2
+  - process_3
+  - process_4
+exploits:
+  e_web:
+    service: web
+    os: linux
+    prob: 0.8
+    cost: 1
+    access: user
+privilege_escalation:
+  pe_process_1:
+    process: process_1
+    os: linux
+    prob: 1.0
+    cost: 1
+    access: root
+  pe_process_3:
+    process: process_3
+    os: windows
+    prob: 1.0
+    cost: 1
+    access: admin
+service_scan_cost: 1
+os_scan_cost: 1
+subnet_scan_cost: 1
+process_scan_cost: 1
+host_configurations:
+  (1, 0):
+    os: linux
+    services: [web]
+    processes: [process_1]
+    firewall:
+      (3, 0): []
+  (2, 0):
+    os: linux
+    services: [database]
+    processes: [process_2]
+    firewall:
+  (3, 0):
+    os: windows
+    services: [web]
+    processes: [process_3]
+    firewall:
+      (1, 0): []
+  (4, 0):
+    os: windows
+    services: [database]
+    processes: [process_4]
+    firewall:
+  (5, 0):
+    os: linux
+    services: []
+    processes: []
+    firewall:
+firewall:
+  (0, 1): [web]
+  (1, 0): []
+  (0, 3): [web]
+  (3, 0): []
+step_limit: 1000",Error
+"subnets: [1, 1, 1, 1, 1]
+topology: [[0, 1, 1, 0, 0, 0],
+           [1, 0, 1, 1, 0, 0],
+           [1, 1, 0, 1, 1, 0],
+           [0, 1, 1, 0, 1, 1],
+           [0, 0, 1, 1, 0, 1],
+           [0, 0, 0, 1, 1, 0]]
+sensitive_hosts:
+  (2, 0): 100
+  (3, 0): 100
+  (4, 0): 100
+  (5, 0): 100
+os:
+  - windows
+  - linux
+services:
+  - web
+  - ssh
+processes:
+  - apache
+  - nginx
+exploits:
+  e_web:
+    service: web
+    os: windows
+    prob: 0.8
+    cost: 1
+    access: user
+  e_ssh:
+    service: ssh
+    os: linux
+    prob: 0.9
+    cost: 1
+    access: user
+privilege_escalation:
+  pe_apache:
+    process: apache
+    os: windows
+    prob: 1.0
+    cost: 1
+    access: root
+  pe_nginx:
+    process: nginx
+    os: linux
+    prob: 0.7
+    cost: 1
+    access: root
+service_scan_cost: 1
+os_scan_cost: 1
+subnet_scan_cost: 1
+process_scan_cost: 1
+host_configurations:
+  (1, 0):
+    os: windows
+    services: [web, ssh]
+    processes: [apache, nginx]
+    firewall:
+      (3, 0): [ssh]
+  (2, 0):
+    os: linux
+    services: [web, ssh]
+    processes: [apache, nginx]
+    firewall:
+      (1, 0): [web]
+  (3, 0):
+    os: windows
+    services: [web]
+    processes: [apache]
+    firewall:
+      (4, 0): [web]
+  (4, 0):
+    os: linux
+    services: [ssh]
+    processes: [nginx]
+    firewall:
+      (5, 0): [ssh]
+  (5, 0):
+    os: windows
+    services: [web, ssh]
+    processes: [apache, nginx]
+firewall:
+  (0, 1): [web, ssh]
+  (1, 0): []
+  (1, 2): [ssh]
+  (2, 1): [web, ssh]
+  (1, 3): [web]
+  (3, 1): [ssh]
+  (2, 3): [ssh, web]
+  (3, 2): [web, ssh]
+  (3, 4): [ssh]
+  (4, 3): [web, ssh]
+  (2, 4): []
+  (4, 2): []
+  (4, 5): [web, ssh]
+  (5, 4): [ssh]
+  (3, 5): [web, ssh]
+  (5, 3): [ssh]
+  (5, 0): []
+step_limit: 1000",Error
+"subnets: [1, 1, 1, 1, 1]
+topology: [[0, 1, 0, 1, 0, 0],
+           [1, 0, 1, 0, 1, 0],
+           [0, 1, 0, 0, 0, 1],
+           [1, 0, 0, 0, 1, 0],
+           [0, 1, 0, 1, 0, 1],
+           [0, 0, 1, 0, 1, 0]]
+sensitive_hosts:
+  (2, 0): 100
+  (3, 0): 100
+  (5, 0): 100
+os:
+  - linux
+services:
+  - ssh
+  - http
+processes:
+  - tomcat
+  - apache
+  - nginx
+exploits:
+  e_ssh:
+    service: ssh
+    os: linux
+    prob: 0.8
+    cost: 1
+    access: user
+  e_http:
+    service: http
+    os: linux
+    prob: 0.6
+    cost: 1
+    access: user
+privilege_escalation:
+  pe_nginx:
+    process: nginx
+    os: linux
+    prob: 1.0
+    cost: 1
+    access: root
+service_scan_cost: 1
+os_scan_cost: 1
+subnet_scan_cost: 1
+process_scan_cost: 1
+host_configurations:
+  (1, 0):
+    os: linux
+    services: [ssh, http]
+    processes: [tomcat, apache]
+    firewall:
+      (3, 0): [ssh, http]
+      (5, 0): [http]
+  (2, 0):
+    os: linux
+    services: [ssh, http]
+    processes: [tomcat, apache]
+    firewall:
+      (1, 0): [ssh]
+      (4, 0): [http]
+  (3, 0):
+    os: linux
+    services: [ssh, http]
+    processes: [nginx, apache]
+    firewall:
+      (1, 0): [http]
+      (5, 0): [ssh]
+  (4, 0):
+    os: linux
+    services: [ssh, http]
+    processes: [tomcat, nginx]
+    firewall:
+      (2, 0): [http]
+      (3, 0): [ssh]
+  (5, 0):
+    os: linux
+    services: [ssh, http]
+    processes: [nginx, apache]
+    firewall:
+      (2, 0): [ssh]
+      (3, 0): [http]
+firewall:
+  (0, 1): [ssh, http]
+  (1, 0): [ssh]
+  (1, 2): [http]
+  (2, 1): [ssh, http]
+  (1, 3): [ssh]
+  (3, 1): [ssh, http]
+  (1, 4): [http]
+  (4, 1): [ssh]
+  (2, 5): [ssh, http]
+  (5, 2): []
+  (3, 4): [http]
+  (4, 3): [ssh]
+  (4, 5): [ssh, http]
+  (5, 4): []
+step_limit: 1000",Error
+"subnets: [1, 1, 1, 1, 1]
+topology: 
+[
+  [0, 1, 0, 0, 1, 1],
+  [1, 0, 1, 0, 0, 0],
+  [0, 1, 0, 1, 1, 0],
+  [0, 0, 1, 0, 1, 1],
+  [1, 0, 1, 1, 0, 0],
+  [1, 0, 0, 1, 0, 0]
+]
+sensitive_hosts:
+  (2, 0): 100
+  (3, 0): 100
+  (5, 0): 120
+os:
+  - linux
+  - windows
+services:
+  - ssh
+  - http
+processes:
+  - apache
+  - nginx
+exploits:
+  e_ssh:
+    service: ssh
+    os: linux
+    prob: 0.8
+    cost: 1
+    access: user
+  e_http:
+    service: http
+    os: windows
+    prob: 0.9
+    cost: 1
+    access: admin
+privilege_escalation:
+  pe_apache:
+    process: apache
+    os: linux
+    prob: 0.7
+    cost: 1
+    access: root
+  pe_nginx:
+    process: nginx
+    os: windows
+    prob: 0.8
+    cost: 1
+    access: system
+service_scan_cost: 1
+os_scan_cost: 1
+subnet_scan_cost: 1
+process_scan_cost: 1
+host_configurations:
+  (1, 0):
+    os: linux
+    services: [ssh, http]
+    processes: [apache]
+    firewall:
+      (2, 0): [http]
+  (2, 0):
+    os: windows
+    services: [http]
+    processes: [nginx]
+    firewall:
+      (3, 0): [http]
+  (3, 0):
+    os: linux
+    services: [ssh]
+    processes: [nginx]
+    firewall:
+      (4, 0): [ssh]
+  (4, 0):
+    os: windows
+    services: [http]
+    processes: [apache]
+    firewall:
+      (5, 0): [http]
+  (5, 0):
+    os: linux
+    services: [ssh, http]
+    processes: [nginx]
+    firewall:
+      (1, 0): [ssh]
+firewall:
+  (0, 1): [ssh]
+  (1, 0): []
+  (1, 2): [http]
+  (2, 1): [ssh]
+  (1, 3): [ssh]
+  (3, 1): []
+  (2, 3): [ssh]
+  (3, 2): [http]
+  (2, 4): [http]
+  (4, 2): [http]
+  (3, 4): [ssh]
+  (4, 3): []
+  (3, 5): [ssh]
+  (5, 3): [http]
+  (4, 5): [http]
+  (5, 4): [ssh]
+  (0, 4): []
+  (0, 5): []
+  (4, 0): [ssh]
+  (5, 0): [ssh]
+step_limit: 1000",Error
+"subnets: [1, 1, 1, 1, 1]
+topology: [
+  [0, 0, 0, 1, 0, 1], 
+  [0, 0, 1, 0, 1, 0], 
+  [0, 1, 0, 0, 0, 1], 
+  [1, 0, 0, 0, 1, 0], 
+  [0, 1, 0, 1, 0, 0], 
+  [1, 0, 1, 0, 0, 0]
+]
+sensitive_hosts:
+  (1, 0): 100
+  (3, 0): 100
+  (5, 0): 100
+os:
+  - linux
+  - windows
+services:
+  - ssh
+  - http
+processes:
+  - apache
+  - mysql
+  - iis
+exploits:
+  e_ssh:
+    service: ssh
+    os: linux
+    prob: 0.8
+    cost: 1
+    access: user
+  e_http:
+    service: http
+    os: windows
+    prob: 0.8
+    cost: 1
+    access: user
+privilege_escalation:
+  pe_apache:
+    process: apache
+    os: linux
+    prob: 0.9
+    cost: 2
+    access: root
+  pe_iis:
+    process: iis
+    os: windows
+    prob: 0.9
+    cost: 2
+    access: root
+service_scan_cost: 2
+os_scan_cost: 2
+subnet_scan_cost: 2
+process_scan_cost: 2
+host_configurations:
+  (0, 0):
+    os: windows
+    services: [http]
+    processes: [iis]
+    firewall: {}
+  (1, 0):
+    os: linux
+    services: [ssh]
+    processes: [apache, mysql]
+    firewall:
+      (3, 0): []
+  (2, 0):
+    os: linux
+    services: [http]
+    processes: [apache]
+    firewall: {}
+  (3, 0):
+    os: windows
+    services: [ssh, http]
+    processes: [mysql, iis]
+    firewall:
+      (1, 0): []
+  (4, 0):
+    os: linux
+    services: [ssh]
+    processes: [apache]
+    firewall: {}
+  (5, 0):
+    os: windows
+    services: [http]
+    processes: [iis]
+    firewall: {}
+firewall:
+  (0, 3): [http]
+  (0, 5): [http]
+  (1, 2): [ssh]
+  (1, 4): [ssh]
+  (2, 1): []
+  (2, 5): [http]
+  (3, 0): []
+  (3, 4): [ssh, http]
+  (4, 1): []
+  (4, 3): []
+  (5, 0): []
+  (5, 2): []
+step_limit: 1500",Error
+"subnets: [1, 2, 2, 3, 4, 5, 6]
+topology: [[0, 1, 0, 0, 0, 0, 0, 0],
+           [1, 1, 1, 0, 0, 0, 0, 1],
+           [0, 1, 1, 1, 0, 0, 0, 0],
+           [0, 0, 1, 1, 1, 0, 0, 0],
+           [0, 0, 0, 1, 1, 1, 0, 0],
+           [0, 0, 0, 0, 1, 1, 1, 0],
+           [0, 0, 0, 0, 0, 1, 1, 1],
+           [0, 1, 0, 0, 0, 0, 0, 1]]
+sensitive_hosts:
+  (7, 0): 100
+os:
+  - linux
+  - windows
+services:
+  - ssh
+  - http
+processes:
+  - tomcat
+  - nginx
+  - sqlserver
+exploits:
+  e_ssh:
+    service: ssh
+    os: linux
+    prob: 0.8
+    cost: 1
+    access: user
+  e_http:
+    service: http
+    os: windows
+    prob: 0.7
+    cost: 1
+    access: user
+privilege_escalation:
+  pe_tomcat:
+    process: tomcat
+    os: linux
+    prob: 1.0
+    cost: 1
+    access: root
+  pe_sqlserver:
+    process: sqlserver
+    os: windows
+    prob: 0.9
+    cost: 1
+    access: admin
+service_scan_cost: 1
+os_scan_cost: 1
+subnet_scan_cost: 1
+process_scan_cost: 1
+host_configurations:
+  (1, 0):
+    os: linux
+    services: [ssh, http]
+    processes: [tomcat, nginx]
+  (2, 0):
+    os: windows
+    services: [http]
+    processes: [nginx, sqlserver]
+  (3, 0):
+    os: linux
+    services: [ssh]
+    processes: [tomcat]
+  (4, 0):
+    os: linux
+    services: [http]
+    processes: [nginx, tomcat]
+  (5, 0):
+    os: windows
+    services: [http]
+    processes: [sqlserver]
+  (6, 0):
+    os: linux
+    services: [ssh]
+    processes: [nginx]
+  (7, 0):
+    os: windows
+    services: [http]
+    processes: [sqlserver]
+firewall:
+  (0, 1): [ssh, http]
+  (1, 0): []
+  (1, 7): [ssh, http]
+  (7, 1): [http]
+  (1, 2): [http]
+  (2, 1): [ssh]
+  (2, 3): [http]
+  (3, 2): [ssh]
+  (3, 4): [http]
+  (4, 3): [ssh]
+  (4, 5): [http]
+  (5, 4): [ssh]
+  (5, 6): [http]
+  (6, 5): [ssh]
+  (6, 7): [http]
+  (7, 6): [ssh]
+step_limit: 1000",Error
+"subnets: [1, 1, 1, 1, 1, 1]
+topology: [[ 0, 1, 0, 0, 1, 0, 1],
+           [ 1, 0, 1, 0, 0, 0, 0],
+           [ 0, 1, 0, 1, 0, 1, 0],
+           [ 0, 0, 1, 0, 1, 0, 0],
+           [ 1, 0, 0, 1, 0, 0, 1],
+           [ 0, 0, 1, 0, 0, 0, 1],
+           [ 1, 0, 0, 0, 1, 1, 0]]
+sensitive_hosts:
+  (6, 0): 100
+  (5, 0): 100
+os:
+  - linux
+  - windows
+services:
+  - ssh
+  - http
+processes:
+  - tomcat
+  - nginx
+  - apache
+exploits:
+  e_ssh:
+    service: ssh
+    os: linux
+    prob: 0.8
+    cost: 2
+    access: user
+  e_http:
+    service: http
+    os: windows
+    prob: 0.9
+    cost: 2
+    access: user
+privilege_escalation:
+  pe_tomcat:
+    process: tomcat
+    os: linux
+    prob: 1.0
+    cost: 1
+    access: root
+  pe_nginx:
+    process: nginx
+    os: windows
+    prob: 0.9
+    cost: 2
+    access: admin
+service_scan_cost: 2
+os_scan_cost: 2
+subnet_scan_cost: 2
+process_scan_cost: 2
+host_configurations:
+  (1, 0):
+    os: linux
+    services: [ssh]
+    processes: [tomcat]
+    firewall:
+      (3, 0): [ssh]
+  (2, 0):
+    os: windows
+    services: [http]
+    processes: [nginx]
+    firewall:
+      (1, 0): [http]
+  (3, 0):
+    os: linux
+    services: [ssh]
+    processes: [apache]
+  (4, 0):
+    os: windows
+    services: [http]
+    processes: [apache]
+    firewall:
+      (6, 0): [http]
+  (5, 0):
+    os: linux
+    services: [ssh]
+    processes: [nginx]
+    firewall:
+      (2, 0): [ssh]
+  (6, 0):
+    os: windows
+    services: [http]
+    processes: [tomcat]
+# firewalls between subnets
+firewall:
+  (0, 1): [ssh, http]
+  (1, 0): []
+  (1, 2): []
+  (2, 1): [http]
+  (1, 3): [ssh]
+  (3, 1): [ssh]
+  (2, 3): [ssh]
+  (3, 2): [ssh]
+  (4, 0): [http]
+  (4, 5): [http]
+  (4, 6): [http]
+  (6, 4): [http]
+  (5, 6): [http]
+  (6, 5): [http]
+step_limit: 1500",Error
+"subnets: [1, 1, 1, 1, 1]
+topology: [[ 0, 1, 0, 1, 0, 1],
+           [ 1, 0, 1, 0, 1, 0],
+           [ 0, 1, 0, 1, 0, 1],
+           [ 1, 0, 1, 0, 1, 0],
+           [ 0, 1, 0, 1, 0, 1],
+           [ 1, 0, 1, 0, 1, 0]]
+sensitive_hosts:
+  (2, 0): 100
+  (3, 0): 100
+  (5, 0): 100
+os:
+  - linux
+  - windows
+services:
+  - ssh
+  - http
+  - ftp
+processes:
+  - apache
+  - nginx
+exploits:
+  e_ssh:
+    service: ssh
+    os: linux
+    prob: 0.8
+    cost: 1
+    access: user
+  e_http:
+    service: http
+    os: windows
+    prob: 0.75
+    cost: 2
+    access: user
+privilege_escalation:
+  pe_nginx:
+    process: nginx
+    os: linux
+    prob: 1.0
+    cost: 1
+    access: root
+  pe_apache:
+    process: apache
+    os: windows
+    prob: 0.9
+    cost: 1
+    access: admin
+service_scan_cost: 2
+os_scan_cost: 2
+subnet_scan_cost: 2
+process_scan_cost: 2
+host_configurations:
+  (1, 0):
+    os: linux
+    services: [ssh, http]
+    processes: [apache]
+    firewall:
+      (3, 0): [ssh, http]
+  (2, 0):
+    os: windows
+    services: [ssh, http, ftp]
+    processes: [nginx]
+    firewall:
+      (1, 0): [ftp]
+      (5, 0): [http]
+  (3, 0):
+    os: linux
+    services: [ftp]
+    processes: [apache]
+  (4, 0):
+    os: windows
+    services: [http, ftp]
+    processes: [nginx]
+    firewall:
+      (2, 0): [ftp]
+  (5, 0):
+    os: linux
+    services: [ssh, ftp]
+    processes: [nginx]
+    firewall:
+      (1, 0): [ssh]
+firewall:
+  (0, 1): [ssh, http]
+  (1, 0): [ftp]
+  (1, 2): [http]
+  (2, 1): [ftp, ssh]
+  (1, 3): [ssh, ftp]
+  (3, 1): [http]
+  (2, 3): [ssh, http, ftp]
+  (3, 2): [ssh, http]
+  (3, 4): [ftp]
+  (4, 3): [http]
+  (4, 5): [http, ssh]
+  (5, 4): [ftp]
+step_limit: 1500",Error
+"subnets: [1, 1, 1, 1, 1]
+topology: [[0, 1, 0, 0, 1, 0],
+           [1, 0, 1, 0, 0, 1],
+           [0, 1, 0, 1, 0, 0],
+           [0, 0, 1, 0, 1, 1],
+           [1, 0, 0, 1, 0, 0],
+           [0, 1, 0, 1, 0, 0]]
+sensitive_hosts:
+  (5, 0): 100
+os:
+  - linux
+  - windows
+services:
+  - ssh
+  - http
+processes:
+  - tomcat
+  - apache
+  - iis
+exploits:
+  e_ssh:
+    service: ssh
+    os: linux
+    prob: 0.75
+    cost: 1
+    access: user
+  e_http:
+    service: http
+    os: windows
+    prob: 0.65
+    cost: 2
+    access: user
+privilege_escalation:
+  pe_tomcat:
+    process: tomcat
+    os: linux
+    prob: 0.95
+    cost: 2
+    access: root
+  pe_iis:
+    process: iis
+    os: windows
+    prob: 0.9
+    cost: 3
+    access: admin
+service_scan_cost: 1
+os_scan_cost: 1
+subnet_scan_cost: 1
+process_scan_cost: 1
+host_configurations:
+  (1, 0):
+    os: linux
+    services: [ssh, http]
+    processes: [tomcat, apache]
+    firewall:
+      (2, 0): [ssh, http]
+  (2, 0):
+    os: windows
+    services: [http]
+    processes: [apache, iis]
+    firewall:
+      (1, 0): [http]
+      (3, 0): [http]
+  (3, 0):
+    os: linux
+    services: [ssh]
+    processes: [tomcat]
+    firewall:
+      (4, 0): [ssh, http]
+  (4, 0):
+    os: linux
+    services: [ssh]
+    processes: [apache, tomcat]
+    firewall:
+      (5, 0): [ssh]
+  (5, 0):
+    os: windows
+    services: [http]
+    processes: [iis]
+    firewall:
+      (1, 0): [http]
+firewall:
+  (0, 1): [ssh, http]
+  (1, 0): []
+  (1, 2): [http, ssh]
+  (2, 1): []
+  (1, 5): [http]
+  (5, 1): []
+  (2, 3): [http]
+  (3, 2): [ssh]
+  (3, 4): []
+  (4, 3): [ssh, http]
+  (4, 5): [ssh]
+  (5, 4): [http]
+step_limit: 1000",Error
+"subnets: [1, 1, 1, 1, 1, 1]
+topology: [[1, 0, 1, 0, 0, 0, 0],
+           [0, 1, 0, 1, 0, 0, 0],
+           [1, 0, 1, 0, 0, 0, 0],
+           [0, 1, 0, 1, 1, 0, 0],
+           [0, 0, 0, 1, 1, 1, 0],
+           [0, 0, 0, 0, 1, 1, 1],
+           [0, 0, 0, 0, 0, 1, 1]]
+sensitive_hosts:
+  (3, 0): 100
+  (4, 0): 100
+  (5, 0): 100
+os:
+  - linux
+  - windows
+services:
+  - ssh
+  - http
+  - ftp
+  - smtp
+processes:
+  - apache
+  - nginx
+  - iis
+exploits:
+  e_ssh_linux:
+    service: ssh
+    os: linux
+    prob: 0.8
+    cost: 1
+    access: user
+  e_http_windows:
+    service: http
+    os: windows
+    prob: 0.7
+    cost: 1
+    access: user
+privilege_escalation:
+  pe_ftp_apache:
+    process: apache
+    os: linux
+    prob: 0.9
+    cost: 1
+    access: root
+  pe_smtp_nginx:
+    process: nginx
+    os: linux
+    prob: 0.85
+    cost: 1
+    access: root
+service_scan_cost: 1
+os_scan_cost: 1
+subnet_scan_cost: 1
+process_scan_cost: 1
+host_configurations:
+  (1, 0):
+    os: linux
+    services: [ssh, http]
+    processes: [apache, nginx]
+    firewall:
+      (3, 0): [http, smtp]
+      (4, 0): [ssh, ftp]
+  (2, 0):
+    os: windows
+    services: [http, smtp]
+    processes: [iis]
+    firewall:
+      (4, 0): [ssh, smtp]
+  (3, 0):
+    os: linux
+    services: [ftp, smtp]
+    processes: [apache]
+    firewall:
+  (4, 0):
+    os: windows
+    services: [ssh, ftp]
+    processes: [iis]
+    firewall:
+      (5, 0): [http, ssh]
+  (5, 0):
+    os: linux
+    services: [http, smtp]
+    processes: [nginx]
+    firewall:
+      (6, 0): [ftp, smtp]
+  (6, 0):
+    os: linux
+    services: [ssh, smtp]
+    processes: [apache]
+firewall:
+  (0, 1): [ssh, http]
+  (1, 0): []
+  (1, 2): []
+  (2, 1): [http]
+  (1, 3): [ssh, ftp]
+  (3, 1): [smtp]
+  (2, 4): [ftp, smtp]
+  (4, 2): [ssh]
+  (3, 5): [http]
+  (5, 3): [ftp]
+  (4, 6): [ssh, smtp]
+  (6, 4): [http]
+step_limit: 1000",Error
+"subnets: [1, 1, 1, 1, 1]
+topology: [[0, 1, 0, 0, 1, 0],
+           [1, 0, 1, 0, 0, 0],
+           [0, 1, 0, 1, 0, 0],
+           [0, 0, 1, 0, 1, 0],
+           [1, 0, 0, 1, 0, 1],
+           [0, 0, 0, 0, 1, 0]]
+sensitive_hosts:
+  (2, 0): 100
+  (4, 0): 150
+os:
+  - linux
+  - windows
+services:
+  - ssh
+  - http
+processes:
+  - nginx
+  - apache
+  - iis
+exploits:
+  e_ssh:
+    service: ssh
+    os: linux
+    prob: 0.65
+    cost: 2
+    access: user
+  e_http:
+    service: http
+    os: windows
+    prob: 0.7
+    cost: 2
+    access: user
+privilege_escalation:
+  pe_nginx:
+    process: nginx
+    os: linux
+    prob: 0.95
+    cost: 1
+    access: root
+  pe_iis:
+    process: iis
+    os: windows
+    prob: 0.9
+    cost: 1
+    access: root
+service_scan_cost: 2
+os_scan_cost: 2
+subnet_scan_cost: 1
+process_scan_cost: 2
+host_configurations:
+  (1, 0):
+    os: linux
+    services: [ssh]
+    processes: [nginx]
+    firewall:
+      (3, 0): [ssh]
+  (2, 0):
+    os: linux
+    services: [http]
+    processes: [apache]
+    firewall:
+      (4, 0): [http]
+  (3, 0):
+    os: windows
+    services: [http]
+    processes: [iis]
+  (4, 0):
+    os: windows
+    services: [ssh]
+    processes: [iis]
+    firewall:
+      (2, 0): [http]
+  (5, 0):
+    os: linux
+    services: [ssh]
+    processes: [nginx]
+firewall:
+  (0, 1): [ssh]
+  (1, 0): []
+  (1, 2): [http]
+  (2, 1): []
+  (2, 3): [http]
+  (3, 2): []
+  (3, 4): [http]
+  (4, 3): [ssh]
+  (4, 5): [ssh]
+  (5, 4): []
+step_limit: 1500",Error
+"subnets: [1, 1, 1, 1, 1]
+topology: [
+    [0, 1, 0, 0, 1, 1],
+    [1, 0, 1, 0, 0, 1],
+    [0, 1, 0, 1, 1, 0],
+    [0, 0, 1, 0, 1, 1],
+    [1, 0, 1, 1, 0, 0],
+    [1, 1, 0, 1, 0, 0]
+]
+sensitive_hosts:
+  (2, 0): 100
+  (3, 0): 100
+  (4, 0): 100
+  (5, 0): 100
+os:
+  - linux
+  - windows
+services:
+  - ssh
+  - ftp
+processes:
+  - tomcat
+  - nginx
+  - apache
+exploits:
+  e_ssh:
+    service: ssh
+    os: linux
+    prob: 0.8
+    cost: 1
+    access: user
+  e_ftp:
+    service: ftp
+    os: windows
+    prob: 0.7
+    cost: 1
+    access: user
+privilege_escalation:
+  pe_tomcat:
+    process: tomcat
+    os: linux
+    prob: 1.0
+    cost: 1
+    access: root
+  pe_nginx:
+    process: nginx
+    os: windows
+    prob: 0.9
+    cost: 1
+    access: root
+service_scan_cost: 1
+os_scan_cost: 1
+subnet_scan_cost: 1
+process_scan_cost: 1
+host_configurations:
+  (1, 0):
+    os: linux
+    services: [ssh, ftp]
+    processes: [tomcat, nginx]
+    firewall:
+      (3, 0): [ssh]
+      (5, 0): [ftp]
+  (2, 0):
+    os: windows
+    services: [ftp]
+    processes: [nginx, apache]
+    firewall:
+      (1, 0): [ftp]
+  (3, 0):
+    os: linux
+    services: [ssh]
+    processes: [tomcat, apache]
+    firewall:
+      (5, 0): [ssh]
+  (4, 0):
+    os: windows
+    services: [ftp]
+    processes: [nginx]
+    firewall:
+      (2, 0): [ftp]
+      (5, 0): [ftp]
+  (5, 0):
+    os: linux
+    services: [ssh]
+    processes: [apache]
+    firewall:
+      (1, 0): [ssh]
+# two row for each connection between subnets as defined by topology
+# one for each direction of connection
+# list which services to allow
+firewall:
+  (0, 1): [ssh, ftp]
+  (1, 0): []
+  (1, 2): []
+  (2, 1): [ftp]
+  (1, 5): [ftp]
+  (5, 1): [ftp, ssh]
+  (2, 3): [ssh]
+  (3, 2): [ssh]
+  (2, 4): [ftp]
+  (4, 2): []
+  (3, 4): [ftp]
+  (4, 3): [ftp]
+  (0, 4): [ftp]
+  (4, 0): [ssh]
+  (0, 5): [ssh]
+  (5, 0): []
+step_limit: 1000",Error
+"subnets: [1, 1, 1, 1]
+topology: [[1, 0, 0, 1, 0],
+           [0, 1, 1, 0, 0],
+           [0, 1, 1, 1, 0],
+           [1, 0, 1, 1, 0],
+           [0, 0, 0, 0, 1]]
+sensitive_hosts:
+  (3, 0): 100
+  (4, 0): 150
+os:
+  - windows
+  - linux
+  - macos
+services:
+  - web_server
+  - database_server
+processes:
+  - apache
+  - mysql
+exploits:
+  e_web_server_rce:
+    service: web_server
+    os: windows
+    prob: 0.7
+    cost: 2
+    access: admin
+  e_sql_injection:
+    service: database_server
+    os: linux
+    prob: 0.9
+    cost: 2
+    access: db_admin
+privilege_escalation:
+  pe_windows:
+    process: apache
+    os: windows
+    prob: 0.8
+    cost: 2
+    access: system
+  pe_linux:
+    process: mysql
+    os: linux
+    prob: 0.85
+    cost: 2
+    access: root
+service_scan_cost: 2
+os_scan_cost: 1
+subnet_scan_cost: 2
+process_scan_cost: 2
+host_configurations:
+  (1, 0):
+    os: windows
+    services: [web_server]
+    processes: [apache]
+    firewall:
+      (2, 0): [web_server]
+      (4, 0): []
+  (2, 0):
+    os: linux
+    services: [web_server, database_server]
+    processes: [mysql]
+    firewall:
+      (1, 0): []
+      (3, 0): [database_server]
+  (3, 0):
+    os: macos
+    services: [database_server]
+    processes: []
+    firewall:
+      (2, 0): []
+      (4, 0): [database_server]
+  (4, 0):
+    os: linux
+    services: [database_server]
+    processes: [mysql]
+    firewall:
+      (1, 0): [database_server]
+      (3, 0): []
+firewall:
+  (0, 1): []
+  (1, 0): [web_server]
+  (1, 2): []
+  (2, 1): [web_server, database_server]
+  (1, 3): []
+  (3, 1): []
+  (1, 4): [web_server]
+  (4, 1): [database_server]
+  (2, 3): [database_server]
+  (3, 2): []
+  (3, 4): [database_server]
+  (4, 3): [database_server]
+  (0, 4): []
+  (4, 0): []
+step_limit: 1000",Error
+"subnets: [1, 1, 1, 1, 1]
+topology: [[0, 1, 0, 1, 0, 0],
+           [1, 1, 0, 0, 0, 1],
+           [0, 0, 1, 0, 1, 1],
+           [1, 0, 0, 1, 1, 0],
+           [0, 1, 1, 1, 1, 0],
+           [0, 1, 1, 0, 0, 1]]
+sensitive_hosts:
+  (2, 0): 100
+  (4, 0): 100
+  (6, 0): 100
+os:
+  - linux
+  - windows
+services:
+  - ssh
+  - http
+processes:
+  - tomcat
+  - apache
+  - iis
+exploits:
+  e_ssh:
+    service: ssh
+    os: linux
+    prob: 0.8
+    cost: 1
+    access: user
+  e_http:
+    service: http
+    os: windows
+    prob: 0.7
+    cost: 1
+    access: user
+privilege_escalation:
+  pe_tomcat:
+    process: tomcat
+    os: linux
+    prob: 1.0
+    cost: 1
+    access: root
+  pe_apache:
+    process: apache
+    os: windows
+    prob: 0.9
+    cost: 1
+    access: root
+service_scan_cost: 1
+os_scan_cost: 1
+subnet_scan_cost: 1
+process_scan_cost: 2
+host_configurations:
+  (1, 0):
+    os: windows
+    services: [ssh, http]
+    processes: [tomcat, apache]
+    firewall:
+      (4, 0): [ssh]
+      (5, 0): []
+  (2, 0):
+    os: linux
+    services: [http]
+    processes: [iis, apache]
+    firewall:
+      (1, 0): [http]
+      (3, 0): []
+  (3, 0):
+    os: linux
+    services: [ssh]
+    processes: [tomcat]
+    firewall:
+      (2, 0): [http]
+      (5, 0): [ssh, http]
+  (4, 0):
+    os: windows
+    services: [http]
+    processes: [apache, iis]
+    firewall:
+      (1, 0): [ssh, http]
+      (5, 0): []
+  (5, 0):
+    os: linux
+    services: [ssh]
+    processes: [iis]
+    firewall:
+      (2, 0): [ssh]
+      (4, 0): [http]
+firewall:
+  (0, 1): [ssh]
+  (1, 0): [http]
+  (0, 2): []
+  (2, 0): [ssh]
+  (0, 3): [http]
+  (3, 0): [ssh]
+  (0, 4): []
+  (4, 0): [http]
+  (0, 5): [ssh, http]
+  (5, 0): []
+  (1, 4): [http]
+  (4, 1): [ssh, http]
+  (2, 5): [ssh, http]
+  (5, 2): [ssh]
+  (3, 4): [ssh, http]
+  (4, 3): []
+  (1, 3): [ssh]
+  (3, 1): [http]
+  (2, 4): []
+  (4, 2): [ssh]
+  (1, 5): [http]
+  (5, 1): [ssh]
+  (3, 5): []
+  (5, 3): [ssh, http]
+step_limit: 1000",Error
+"subnets: [1, 1, 1, 1, 1]
+topology: [
+           [0, 1, 0, 0, 1, 0],  # Extra first zero column for network structure
+           [1, 0, 1, 0, 0, 0],
+           [0, 1, 0, 1, 0, 0],
+           [0, 0, 1, 0, 1, 0],
+           [1, 0, 0, 1, 0, 1],
+           [0, 0, 0, 0, 1, 0]
+          ]
+sensitive_hosts:
+  (2, 0): 100
+  (3, 0): 100
+  (4, 0): 100
+  (5, 0): 100
+  (6, 0): 100
+os:
+  - linux
+  - windows
+services:
+  - ssh
+  - http
+processes:
+  - tomcat
+  - apache
+  - nginx
+exploits:
+  e_ssh:
+    service: ssh
+    os: linux
+    prob: 0.8
+    cost: 1
+    access: user
+  e_http:
+    service: http
+    os: windows
+    prob: 0.7
+    cost: 1
+    access: user
+privilege_escalation:
+  pe_tomcat:
+    process: tomcat
+    os: linux
+    prob: 1.0
+    cost: 1
+    access: root
+  pe_apache:
+    process: apache
+    os: windows
+    prob: 0.9
+    cost: 1
+    access: admin
+service_scan_cost: 1
+os_scan_cost: 1
+subnet_scan_cost: 1
+process_scan_cost: 1
+host_configurations:
+  (1, 0):
+    os: linux
+    services: [ssh, http]
+    processes: [tomcat, nginx]
+    firewall:
+      (2, 0): [ssh, http]
+      (5, 0): [http]
+  (2, 0):
+    os: windows
+    services: [http]
+    processes: [apache]
+    firewall:
+      (1, 0): [http]
+  (3, 0):
+    os: linux
+    services: [ssh]
+    processes: [nginx]
+    firewall:
+      (4, 0): [ssh]
+  (4, 0):
+    os: windows
+    services: [http]
+    processes: [apache, nginx]
+    firewall:
+      (3, 0): [http]
+      (5, 0): [ssh]
+  (5, 0):
+    os: linux
+    services: [ssh]
+    processes: [tomcat]
+firewall:
+  (0, 1): [ssh, http]
+  (1, 0): []
+  (1, 2): [ssh]
+  (2, 1): [http]
+  (1, 5): [ssh]
+  (5, 1): [http]
+  (2, 3): []
+  (3, 2): [ssh]
+  (3, 4): [http]
+  (4, 3): [ssh, http]
+  (4, 5): [http]
+  (5, 4): [ssh]
+step_limit: 1000",Error
+"subnets: [1, 1, 1, 1]
+topology: [[0, 0, 0, 0, 0],
+           [0, 0, 1, 0, 0],
+           [0, 1, 0, 1, 0],
+           [0, 0, 1, 0, 1],
+           [0, 0, 0, 1, 0]]
+sensitive_hosts:
+  (2, 0): 100
+  (3, 0): 100
+  (4, 0): 100
+os:
+  - linux
+  - windows
+services:
+  - ssh
+  - http
+processes:
+  - nginx
+  - apache
+exploits:
+  e_ssh:
+    service: ssh
+    os: linux
+    prob: 0.8
+    cost: 1
+    access: user
+  e_http:
+    service: http
+    os: windows
+    prob: 0.7
+    cost: 2
+    access: user
+privilege_escalation:
+  pe_nginx:
+    process: nginx
+    os: linux
+    prob: 1.0
+    cost: 1
+    access: root
+  pe_apache:
+    process: apache
+    os: windows
+    prob: 0.9
+    cost: 2
+    access: admin
+service_scan_cost: 2
+os_scan_cost: 1
+subnet_scan_cost: 1
+process_scan_cost: 1
+host_configurations:
+  (1, 0):
+    os: linux
+    services: [ssh, http]
+    processes: [nginx]
+    firewall:
+      (3, 0): [ssh]
+      (4, 0): [http]
+  (2, 0):
+    os: windows
+    services: [http]
+    processes: [apache]
+    firewall:
+      (1, 0): [ssh]
+  (3, 0):
+    os: linux
+    services: [ssh]
+    processes: [nginx]
+    firewall:
+      (2, 0): [http]
+      (4, 0): [ssh]
+  (4, 0):
+    os: windows
+    services: [http]
+    processes: [apache]
+    firewall:
+      (3, 0): [ssh]
+firewall:
+  (0, 1): []
+  (0, 2): []
+  (0, 3): []
+  (0, 4): []
+  (1, 0): []
+  (1, 2): [ssh]
+  (1, 3): []
+  (1, 4): []
+  (2, 0): []
+  (2, 1): [http]
+  (2, 3): [http]
+  (2, 4): []
+  (3, 0): []
+  (3, 1): []
+  (3, 2): [ssh]
+  (3, 4): [ssh, http]
+  (4, 0): []
+  (4, 1): []
+  (4, 2): []
+  (4, 3): [http]
+step_limit: 1500",Error
+"subnets: [1, 1, 1, 1, 1]
+topology: [[1, 0, 0, 1, 0],
+           [0, 1, 0, 0, 1],
+           [1, 1, 0, 0, 0],
+           [0, 0, 1, 1, 0],
+           [0, 0, 1, 0, 1]]
+sensitive_hosts:
+  (1, 0): 100
+  (2, 0): 100
+  (3, 0): 100
+  (4, 0): 100
+  (5, 0): 100
+os:
+  - linux
+  - windows
+services:
+  - ssh
+  - http
+processes:
+  - apache
+  - nginx
+  - mysql
+exploits:
+  e_ssh:
+    service: ssh
+    os: linux
+    prob: 0.8
+    cost: 1
+    access: user
+  e_http:
+    service: http
+    os: windows
+    prob: 0.7
+    cost: 1
+    access: user
+privilege_escalation:
+  pe_apache:
+    process: apache
+    os: linux
+    prob: 0.9
+    cost: 1
+    access: root
+  pe_mysql:
+    process: mysql
+    os: linux
+    prob: 1.0
+    cost: 1
+    access: root
+service_scan_cost: 1
+os_scan_cost: 1
+subnet_scan_cost: 1
+process_scan_cost: 1
+host_configurations:
+  (1, 0):
+    os: linux
+    services: [ssh, http]
+    processes: [apache, mysql]
+    firewall:
+      (4, 0): [ssh, http]
+  (2, 0):
+    os: windows
+    services: [http]
+    processes: [nginx]
+    firewall:
+      (1, 0): [ssh, http]
+      (5, 0): [http]
+  (3, 0):
+    os: linux
+    services: [ssh]
+    processes: [apache, mysql]
+    firewall:
+      (1, 0): [ssh]
+      (2, 0): [ssh, http]
+  (4, 0):
+    os: linux
+    services: [ssh]
+    processes: [apache]
+    firewall:
+      (5, 0): [http]
+  (5, 0):
+    os: windows
+    services: [http]
+    processes: [nginx]
+firewall:
+  (0, 1): [ssh, http]
+  (1, 0): []
+  (1, 2): []
+  (2, 1): [ssh, http]
+  (1, 3): [ssh]
+  (3, 1): [ssh]
+  (2, 3): [http]
+  (3, 2): [ssh]
+  (2, 4): [http]
+  (4, 2): [http]
+  (3, 4): [http, ssh]
+  (4, 3): [ssh]
+  (4, 0): []
+  (0, 4): [http, ssh]
+step_limit: 1000",Error
+"subnets: [1, 1, 1, 1, 1, 1]
+topology: [[1, 0, 1, 0, 0, 0],
+           [0, 1, 0, 0, 1, 1],
+           [1, 0, 1, 0, 0, 0],
+           [0, 0, 0, 1, 0, 1],
+           [0, 1, 0, 0, 1, 0],
+           [0, 1, 0, 1, 0, 1]]
+sensitive_hosts:
+  (2, 0): 100
+  (5, 0): 150
+os:
+  - linux
+  - windows
+services:
+  - ssh
+  - http
+processes:
+  - tomcat
+  - apache
+  - iis
+exploits:
+  e_ssh_linux:
+    service: ssh
+    os: linux
+    prob: 0.75
+    cost: 2
+    access: user
+  e_http_windows:
+    service: http
+    os: windows
+    prob: 0.6
+    cost: 3
+    access: user
+privilege_escalation:
+  pe_tomcat:
+    process: tomcat
+    os: linux
+    prob: 1.0
+    cost: 1
+    access: root
+  pe_iis:
+    process: iis
+    os: windows
+    prob: 0.9
+    cost: 2
+    access: root
+service_scan_cost: 1
+os_scan_cost: 1
+subnet_scan_cost: 1
+process_scan_cost: 1
+host_configurations:
+  (1, 0):
+    os: linux
+    services: [ssh, http]
+    processes: [tomcat, apache]
+    firewall:
+      (3, 0): [ssh, http]
+      (5, 0): [http]
+  (2, 0):
+    os: windows
+    services: [http]
+    processes: [apache, iis]
+    firewall:
+      (1, 0): [ssh, http]
+  (3, 0):
+    os: linux
+    services: [ssh]
+    processes: [tomcat, apache]
+  (4, 0):
+    os: windows
+    services: [http]
+    processes: [apache, iis]
+    firewall:
+      (2, 0): [http]
+      (6, 0): [http]
+  (5, 0):
+    os: linux
+    services: [ssh]
+    processes: [tomcat]
+    firewall:
+      (1, 0): [ssh]
+  (6, 0):
+    os: windows
+    services: [http]
+    processes: [iis]
+    firewall:
+      (4, 0): [http]
+firewall:
+  (0, 2): [ssh]
+  (2, 0): [ssh]
+  (1, 5): [http]
+  (5, 1): [http]
+  (1, 6): [ssh]
+  (6, 1): [ssh]
+  (3, 6): [ssh]
+  (6, 3): [ssh]
+  (5, 6): [ssh]
+  (6, 5): [ssh]
+  (5, 1): [ssh]
+  (1, 5): [ssh]
+step_limit: 2000",Error
+"subnets: [1, 1, 1, 1, 1]
+topology: [[0, 1, 1, 0, 1, 0],
+           [1, 0, 0, 1, 0, 1],
+           [1, 0, 0, 1, 0, 0],
+           [0, 1, 1, 0, 1, 0],
+           [1, 0, 0, 1, 0, 1],
+           [0, 1, 0, 0, 1, 0]]
+sensitive_hosts:
+  (2, 0): 100
+  (3, 0): 100
+os:
+  - linux
+  - windows
+services:
+  - ssh
+  - http
+processes:
+  - tomcat
+  - apache
+  - iis
+exploits:
+  e_ssh:
+    service: ssh
+    os: linux
+    prob: 0.8
+    cost: 1
+    access: user
+  e_http:
+    service: http
+    os: windows
+    prob: 0.7
+    cost: 1
+    access: user
+privilege_escalation:
+  pe_tomcat:
+    process: tomcat
+    os: linux
+    prob: 1.0
+    cost: 1
+    access: root
+  pe_apache:
+    process: apache
+    os: windows
+    prob: 0.9
+    cost: 1
+    access: root
+service_scan_cost: 1
+os_scan_cost: 1
+subnet_scan_cost: 1
+process_scan_cost: 1
+host_configurations:
+  (1, 0):
+    os: linux
+    services: [ssh, http]
+    processes: [tomcat, apache]
+    firewall:
+      (3, 0): [ssh, http]
+      (5, 0): [ssh]
+  (2, 0):
+    os: windows
+    services: [http]
+    processes: [apache, iis]
+    firewall:
+      (1, 0): [http]
+      (4, 0): [http]
+  (3, 0):
+    os: linux
+    services: [ssh]
+    processes: [tomcat]
+    firewall:
+      (1, 0): [ssh]
+      (4, 0): [ssh]
+  (4, 0):
+    os: windows
+    services: [http]
+    processes: [apache, iis]
+    firewall:
+      (3, 0): [http]
+      (5, 0): [http]
+  (5, 0):
+    os: linux
+    services: [ssh]
+    processes: [tomcat]
+firewall:
+  (0, 1): [ssh, http]
+  (1, 0): []
+  (0, 2): [ssh, http]
+  (2, 0): []
+  (0, 4): [ssh]
+  (4, 0): []
+  (1, 3): [ssh]
+  (3, 1): [ssh,http]
+  (1, 5): [http]
+  (5, 1): []
+  (2, 3): [ssh]
+  (3, 2): []
+  (3, 4): [http]
+  (4, 3): [ssh]
+  (4, 5): [ssh, http]
+  (5, 4): []
+step_limit: 1000",Success
+"subnets: [1, 1, 1, 1, 1]
+topology: [[0, 1, 0, 0, 0, 0],
+           [1, 0, 1, 0, 0, 0],
+           [0, 1, 0, 1, 0, 0],
+           [0, 0, 1, 0, 1, 0],
+           [0, 0, 0, 1, 0, 1],
+           [0, 0, 0, 0, 1, 0]]
+sensitive_hosts:
+  (2, 0): 100
+  (4, 0): 100
+os:
+  - linux
+  - windows
+services:
+  - ssh
+  - http
+processes:
+  - tomcat
+  - apache
+  - iis
+exploits:
+  e_ssh:
+    service: ssh
+    os: linux
+    prob: 0.8
+    cost: 1
+    access: user
+  e_http:
+    service: http
+    os: windows
+    prob: 0.7
+    cost: 1
+    access: user
+privilege_escalation:
+  pe_tomcat:
+    process: tomcat
+    os: linux
+    prob: 1.0
+    cost: 1
+    access: root
+  pe_apache:
+    process: apache
+    os: windows
+    prob: 0.9
+    cost: 1
+    access: root
+service_scan_cost: 1
+os_scan_cost: 1
+subnet_scan_cost: 1
+process_scan_cost: 1
+host_configurations:
+  (1, 0):
+    os: linux
+    services: [ssh, http]
+    processes: [tomcat, apache]
+    firewall:
+      (2, 0): [ssh]
+  (2, 0):
+    os: windows
+    services: [http]
+    processes: [apache, iis]
+    firewall:
+      (1, 0): [http]
+      (3, 0): [http]
+  (3, 0):
+    os: linux
+    services: [ssh]
+    processes: [tomcat]
+    firewall:
+      (4, 0): [ssh]
+  (4, 0):
+    os: windows
+    services: [http]
+    processes: [apache, iis]
+    firewall:
+      (5, 0): [http]
+  (5, 0):
+    os: linux
+    services: [ssh]
+    processes: [tomcat]
+    firewall:
+      (4, 0): [ssh]
+firewall:
+  (0, 1): [ssh, http]
+  (1, 0): []
+  (0, 2): []
+  (2, 0): [ssh]
+  (0, 3): []
+  (3, 0): []
+  (0, 4): []
+  (4, 0): [http]
+  (0, 5): [ssh]
+  (5, 0): []
+  (1, 2): [ssh, http]
+  (2, 1): [http]
+  (1, 3): []
+  (3, 1): [ssh]
+  (2, 3): [ssh]
+  (3, 2): [http]
+  (3, 4): [ssh, http]
+  (4, 3): [http]
+  (4, 5): [ssh]
+  (5, 4): []
+step_limit: 1000",Success
+"subnets: [1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+topology: [
+  [0, 1, 0, 1, 0, 0, 1, 0, 1, 0],
+  [1, 0, 1, 1, 1, 0, 0, 1, 0, 1],
+  [0, 1, 0, 0, 1, 1, 0, 0, 0, 1],
+  [1, 1, 0, 0, 0, 1, 0, 1, 1, 0],
+  [0, 1, 1, 0, 0, 1, 1, 0, 1, 0],
+  [0, 0, 1, 1, 1, 0, 1, 0, 0, 1],
+  [1, 0, 0, 0, 1, 1, 0, 1, 0, 1],
+  [0, 1, 0, 1, 0, 0, 1, 0, 1, 0],
+  [1, 0, 0, 1, 1, 0, 0, 1, 0, 1],
+  [0, 1, 1, 0, 0, 1, 1, 0, 1, 0]
+]
+sensitive_hosts:
+  (2, 0): 100
+  (6, 0): 100
+  (9, 0): 100
+os:
+  - linux
+  - windows
+  - macos
+services:
+  - ssh
+  - http
+  - smtp
+  - ftp
+processes:
+  - tomcat
+  - apache
+  - iis
+  - nginx
+  - sshd
+  - mysqld
+  - dns
+exploits:
+  e_ssh:
+    service: ssh
+    os: linux
+    prob: 0.8
+    cost: 1
+    access: user
+  e_http:
+    service: http
+    os: windows
+    prob: 0.7
+    cost: 1
+    access: user
+privilege_escalation:
+  pe_tomcat:
+    process: tomcat
+    os: linux
+    prob: 1.0
+    cost: 1
+    access: root
+  pe_nginx:
+    process: nginx
+    os: macos
+    prob: 0.9
+    cost: 1
+    access: root
+  pe_mysqld:
+    process: mysqld
+    os: linux
+    prob: 0.85
+    cost: 1
+    access: root
+service_scan_cost: 1
+os_scan_cost: 1
+subnet_scan_cost: 1
+process_scan_cost: 1
+host_configurations:
+  (1, 0):
+    os: linux
+    services: [ssh, http]
+    processes: [tomcat, sshd]
+    firewall:
+      (5, 0): [ssh, http]
+  (2, 0):
+    os: windows
+    services: [http, smtp]
+    processes: [iis, apache]
+    firewall:
+      (1, 0): [http, smtp]
+  (3, 0):
+    os: macos
+    services: [smtp, ftp]
+    processes: [nginx, dns]
+    firewall:
+      (4, 0): [smtp, ftp]
+  (4, 0):
+    os: linux
+    services: [ssh, ftp]
+    processes: [sshd, mysqld]
+    firewall:
+  (5, 0):
+    os: windows
+    services: [http, ftp]
+    processes: [apache, iis]
+firewall:
+  (0, 1): [ssh, http]
+  (0, 2): []
+  (0, 3): [ssh]
+  (0, 4): []
+  (0, 5): []
+  (0, 6): [ssh]
+  (0, 7): []
+  (0, 8): [http]
+  (0, 9): []
+  (1, 0): []
+  (1, 3): [http]
+  (1, 4): [ssh, http]
+  (1, 7): [ftp]
+  (1, 9): [smtp]
+  (2, 1): [smtp]
+  (2, 4): [http]
+  (2, 5): [http]
+  (2, 9): [smtp]
+  (3, 0): [ssh]
+  (3, 1): [ftp]
+  (3, 4): [smtp, ftp]
+  (3, 7): [smtp, ftp]
+  (3, 8): [ftp]
+  (4, 0): []
+  (4, 1): [ssh, ftp]
+  (4, 5): [ssh]
+  (4, 6): [ftp]
+  (4, 8): [ssh]
+  (5, 1): []
+  (5, 4): [http]
+  (5, 6): [ftp]
+  (5, 9): [http]
+  (6, 0): [ssh]
+step_limit: 1000",Error
+"subnets: [1, 1, 1, 1, 1]
+topology: [[0, 1, 1, 1, 0, 0],
+           [1, 0, 0, 0, 1, 1],
+           [1, 0, 0, 1, 0, 1],
+           [1, 0, 1, 0, 1, 0],
+           [0, 1, 0, 1, 0, 1],
+           [0, 1, 1, 0, 1, 0]]
+sensitive_hosts:
+  (2, 0): 100
+  (5, 0): 100
+os:
+  - linux
+  - windows
+services:
+  - ssh
+  - http
+processes:
+  - tomcat
+  - apache
+  - iis
+exploits:
+  e_ssh:
+    service: ssh
+    os: linux
+    prob: 0.8
+    cost: 1
+    access: user
+  e_http:
+    service: http
+    os: windows
+    prob: 0.7
+    cost: 1
+    access: user
+privilege_escalation:
+  pe_tomcat:
+    process: tomcat
+    os: linux
+    prob: 1.0
+    cost: 1
+    access: root
+service_scan_cost: 1
+os_scan_cost: 1
+subnet_scan_cost: 1
+process_scan_cost: 1
+host_configurations:
+  (1, 0):
+    os: linux
+    services: [ssh, http]
+    processes: [tomcat, apache]
+    firewall:
+      (4, 0): [ssh, http]
+      (5, 0): [ssh]
+  (2, 0):
+    os: windows
+    services: [http]
+    processes: [apache, iis]
+    firewall:
+      (1, 0): [http]
+      (5, 0): [http]
+  (3, 0):
+    os: linux
+    services: [ssh]
+    processes: [tomcat]
+    firewall:
+      (4, 0): [ssh]
+  (4, 0):
+    os: windows
+    services: [http]
+    processes: [apache, iis]
+    firewall:
+      (1, 0): [http]
+      (3, 0): [http]
+  (5, 0):
+    os: linux
+    services: [ssh]
+    processes: [tomcat]
+    firewall:
+      (2, 0): [ssh]
+      (4, 0): [ssh]
+firewall:
+  (0, 1): [ssh, http]
+  (1, 0): []
+  (0, 2): [ssh, http]
+  (2, 0): []
+  (0, 3): []
+  (3, 0): []
+  (0, 4): [ssh]
+  (4, 0): []
+  (0, 5): []
+  (5, 0): [ssh]
+  (1, 4): [ssh, http]
+  (4, 1): [http]
+  (1, 5): []
+  (5, 1): [ssh]
+  (2, 3): [http]
+  (3, 2): [ssh]
+  (3, 4): [ssh, http]
+  (4, 3): [ssh]
+  (4, 5): [ssh, http]
+  (5, 4): []
+step_limit: 1000",Error
+"subnets: [1, 1, 1, 1, 1]
+topology: [[0, 1, 0, 0, 0, 0],
+           [1, 0, 1, 0, 0, 0],
+           [0, 1, 0, 1, 0, 0],
+           [0, 0, 1, 0, 1, 0],
+           [0, 0, 0, 1, 0, 1],
+           [0, 0, 0, 0, 1, 0]]
+sensitive_hosts:
+  (2, 0): 100
+  (4, 0): 100
+os:
+  - linux
+services:
+  - ssh
+  - http
+processes:
+  - tomcat
+  - apache
+exploits:
+  e_ssh:
+    service: ssh
+    os: linux
+    prob: 0.8
+    cost: 1
+    access: user
+  e_http:
+    service: http
+    os: linux
+    prob: 0.7
+    cost: 1
+    access: user
+privilege_escalation:
+  pe_tomcat:
+    process: tomcat
+    os: linux
+    prob: 1.0
+    cost: 1
+    access: root
+  pe_apache:
+    process: apache
+    os: linux
+    prob: 0.9
+    cost: 1
+    access: root
+service_scan_cost: 1
+os_scan_cost: 1
+subnet_scan_cost: 1
+process_scan_cost: 1
+host_configurations:
+  (1, 0):
+    os: linux
+    services: [ssh, http]
+    processes: [tomcat, apache]
+    firewall:
+      (2, 0): [ssh]
+  (2, 0):
+    os: linux
+    services: [http, ssh]
+    processes: [apache, tomcat]
+    firewall:
+      (1, 0): [http]
+      (3, 0): [http]
+  (3, 0):
+    os: linux
+    services: [ssh]
+    processes: [tomcat]
+    firewall:
+      (4, 0): [ssh]
+  (4, 0):
+    os: linux
+    services: [http]
+    processes: [apache, tomcat]
+    firewall:
+      (5, 0): [http]
+  (5, 0):
+    os: linux
+    services: [ssh]
+    processes: [tomcat]
+    firewall:
+      (4, 0): [ssh]
+firewall:
+  (0, 1): [ssh, http]
+  (1, 0): []
+  (0, 2): []
+  (2, 0): [ssh]
+  (0, 3): []
+  (3, 0): []
+  (0, 4): []
+  (4, 0): [http]
+  (0, 5): [ssh]
+  (5, 0): []
+  (1, 2): [ssh, http]
+  (2, 1): [http]
+  (1, 3): []
+  (3, 1): [ssh]
+  (2, 3): [ssh]
+  (3, 2): [http]
+  (3, 4): [ssh, http]
+  (4, 3): [http]
+  (4, 5): [ssh]
+  (5, 4): []
+step_limit: 1000",Success
+"subnets: [1, 1, 1, 1, 1, 1, 1]
+topology: [
+  [0, 1, 1, 0, 0, 1, 0, 0],
+  [1, 0, 0, 1, 0, 0, 1, 0],
+  [1, 0, 0, 0, 1, 0, 0, 1],
+  [0, 1, 0, 0, 0, 1, 0, 1],
+  [0, 0, 1, 0, 0, 1, 1, 0],
+  [1, 0, 0, 1, 1, 0, 0, 1],
+  [0, 1, 0, 0, 1, 0, 0, 1],
+  [0, 0, 1, 1, 0, 1, 1, 0]
+]
+sensitive_hosts:
+  (2, 0): 100
+  (4, 0): 100
+  (6, 0): 100
+os:
+  - linux
+  - windows
+services:
+  - ssh
+  - http
+processes:
+  - apache
+  - nginx
+  - mysql
+exploits:
+  e_ssh:
+    service: ssh
+    os: linux
+    prob: 0.8
+    cost: 1
+    access: user
+  e_http:
+    service: http
+    os: windows
+    prob: 0.7
+    cost: 1
+    access: user
+privilege_escalation:
+  pe_mysql:
+    process: mysql
+    os: linux
+    prob: 0.9
+    cost: 1
+    access: root
+  pe_apache:
+    process: apache
+    os: windows
+    prob: 0.85
+    cost: 1
+    access: root
+service_scan_cost: 1
+os_scan_cost: 1
+subnet_scan_cost: 1
+process_scan_cost: 1
+host_configurations:
+  (0, 0):
+    os: linux
+    services: [ssh]
+    processes: [apache]
+    firewall:
+      (5, 0): [ssh]
+  (1, 0):
+    os: windows
+    services: [http]
+    processes: [nginx]
+    firewall:
+      (3, 0): [http]
+      (6, 0): [http]
+  (2, 0):
+    os: windows
+    services: [http, ssh]
+    processes: [apache, mysql]
+    firewall:
+      (7, 0): [http]
+  (3, 0):
+    os: linux
+    services: [ssh]
+    processes: [mysql]
+    firewall:
+      (5, 0): [ssh]
+      (7, 0): [ssh]
+  (4, 0):
+    os: linux
+    services: [ssh, http]
+    processes: [apache, mysql]
+    firewall:
+      (5, 0): [ssh]
+      (6, 0): [http]
+  (5, 0):
+    os: windows
+    services: [http]
+    processes: [nginx]
+    firewall:
+      (7, 0): [http]
+  (6, 0):
+    os: linux
+    services: [ssh]
+    processes: [mysql]
+    firewall:
+      (7, 0): [ssh]
+  (7, 0):
+    os: windows
+    services: [http]
+    processes: [apache]
+    firewall:
+      (5, 0): [http]
+      (6, 0): [ssh, http]
+firewall:
+  (0, 1): [ssh]
+  (1, 0): []
+  (0, 2): [ssh]
+  (2, 0): []
+  (0, 5): [ssh]
+  (5, 0): []
+  (1, 3): [http]
+  (3, 1): [ssh]
+  (1, 6): [http]
+  (6, 1): []
+  (2, 4): [http]
+  (4, 2): [ssh]
+  (2, 7): []
+  (7, 2): [http, ssh]
+  (3, 5): [ssh]
+  (5, 3): [http]
+  (3, 7): [ssh]
+  (7, 3): []
+  (4, 5): [ssh, http]
+  (5, 4): []
+  (4, 6): [http]
+  (6, 4): [ssh]
+  (5, 7): [http]
+  (7, 5): []
+  (6, 7): [ssh]
+  (7, 6): [http]
+step_limit: 1000",Error
+"subnets: [1, 1, 1, 1, 1]
+topology: [
+  [0, 1, 1, 0, 0, 0],
+  [1, 0, 0, 1, 0, 0],
+  [1, 0, 0, 0, 1, 0],
+  [0, 1, 0, 0, 0, 1],
+  [0, 0, 1, 0, 0, 1],
+  [0, 0, 0, 1, 1, 0]
+]
+sensitive_hosts:
+  (2, 0): 100
+  (4, 0): 100
+os:
+  - linux
+  - windows
+services:
+  - ssh
+  - http
+processes:
+  - tomcat
+  - apache
+  - iis
+exploits:
+  e_ssh:
+    service: ssh
+    os: linux
+    prob: 0.8
+    cost: 1
+    access: user
+  e_http:
+    service: http
+    os: windows
+    prob: 0.7
+    cost: 1
+    access: user
+privilege_escalation:
+  pe_tomcat:
+    process: tomcat
+    os: linux
+    prob: 1.0
+    cost: 1
+    access: root
+  pe_apache:
+    process: apache
+    os: windows
+    prob: 0.9
+    cost: 1
+    access: root
+service_scan_cost: 1
+os_scan_cost: 1
+subnet_scan_cost: 1
+process_scan_cost: 1
+host_configurations:
+  (1, 0):
+    os: linux
+    services: [ssh, http]
+    processes: [tomcat, apache]
+    firewall:
+      (3, 0): [ssh]
+  (2, 0):
+    os: windows
+    services: [http]
+    processes: [apache, iis]
+    firewall:
+      (1, 0): [http]
+      (4, 0): [http]
+  (3, 0):
+    os: linux
+    services: [ssh]
+    processes: [tomcat]
+    firewall:
+      (1, 0): [ssh]
+      (4, 0): [ssh]
+  (4, 0):
+    os: windows
+    services: [http]
+    processes: [apache, iis]
+    firewall:
+      (3, 0): [http]
+      (5, 0): [http]
+  (5, 0):
+    os: linux
+    services: [ssh]
+    processes: [tomcat]
+    firewall:
+      (4, 0): [ssh]
+firewall:
+  (0, 1): [ssh, http]
+  (1, 0): []
+  (0, 2): [ssh, http]
+  (2, 0): []
+  (0, 4): [ssh]
+  (4, 0): []
+  (1, 3): [ssh]
+  (3, 1): [ssh, http]
+  (1, 5): [http]
+  (5, 1): []
+  (2, 3): [ssh]
+  (3, 2): [http]
+  (3, 4): [http]
+  (4, 3): [ssh]
+  (4, 5): [ssh, http]
+  (5, 4): []
+step_limit: 1000",Error
+"subnets: [1, 1, 1, 1, 1]
+topology: [[0, 1, 1, 0, 0, 1],
+           [1, 0, 1, 0, 1, 0],
+           [1, 1, 0, 1, 0, 0],
+           [0, 0, 1, 0, 1, 0],
+           [0, 1, 0, 1, 0, 0],
+           [1, 0, 0, 0, 0, 0]]
+sensitive_hosts:
+  (3, 0): 100
+  (4, 0): 100
+os:
+  - linux
+  - windows
+services:
+  - ssh
+  - http
+processes:
+  - tomcat
+  - apache
+exploits:
+  e_ssh:
+    service: ssh
+    os: linux
+    prob: 0.8
+    cost: 1
+    access: user
+  e_http:
+    service: http
+    os: windows
+    prob: 0.7
+    cost: 1
+    access: user
+privilege_escalation:
+  pe_tomcat:
+    process: tomcat
+    os: linux
+    prob: 1.0
+    cost: 1
+    access: root
+  pe_apache:
+    process: apache
+    os: windows
+    prob: 0.9
+    cost: 1
+    access: root
+service_scan_cost: 1
+os_scan_cost: 1
+subnet_scan_cost: 1
+process_scan_cost: 1
+host_configurations:
+  (1, 0):
+    os: linux
+    services: [ssh, http]
+    processes: [tomcat, apache]
+    firewall:
+      (2, 0): [ssh, http]
+      (4, 0): [ssh]
+  (2, 0):
+    os: windows
+    services: [http]
+    processes: [apache, tomcat]
+    firewall:
+      (1, 0): [http]
+      (3, 0): [http]
+  (3, 0):
+    os: linux
+    services: [ssh]
+    processes: [tomcat]
+    firewall:
+      (4, 0): [ssh]
+  (4, 0):
+    os: windows
+    services: [http]
+    processes: [apache, tomcat]
+    firewall:
+      (5, 0): [http]
+  (5, 0):
+    os: linux
+    services: [ssh]
+    processes: [tomcat]
+    firewall:
+      (1, 0): [ssh]
+firewall:
+  (0, 1): [ssh, http]
+  (1, 0): []
+  (0, 2): [http, ssh]
+  (2, 0): []
+  (0, 3): []
+  (3, 0): []
+  (0, 4): []
+  (4, 0): []
+  (0, 5): [ssh]
+  (5, 0): []
+  (1, 2): [ssh, http]
+  (2, 1): [http]
+  (1, 3): []
+  (3, 1): [ssh]
+  (1, 4): [ssh]
+  (4, 1): [http]
+  (1, 5): []
+  (5, 1): []
+  (2, 3): [ssh]
+  (3, 2): []
+  (2, 4): []
+  (4, 2): []
+  (2, 5): []
+  (5, 2): []
+  (3, 4): [ssh, http]
+  (4, 3): [http]
+  (3, 5): []
+  (5, 3): []
+  (4, 5): [ssh, http]
+  (5, 4): []
+step_limit: 1000",Success
+"subnets: [1, 1, 1, 1, 1]
+topology: [[0, 1, 1, 0, 0, 0],
+           [1, 0, 1, 1, 0, 0],
+           [1, 1, 0, 1, 1, 0],
+           [0, 1, 1, 0, 1, 1],
+           [0, 0, 1, 1, 0, 1],
+           [0, 0, 0, 1, 1, 0]]
+sensitive_hosts:
+  (2, 0): 100
+  (4, 0): 100
+os:
+  - linux
+  - windows
+services:
+  - ssh
+  - http
+processes:
+  - tomcat
+  - apache
+  - nginx
+exploits:
+  e_ssh:
+    service: ssh
+    os: linux
+    prob: 0.8
+    cost: 1
+    access: user
+  e_http:
+    service: http
+    os: windows
+    prob: 0.7
+    cost: 1
+    access: user
+privilege_escalation:
+  pe_tomcat:
+    process: tomcat
+    os: linux
+    prob: 1.0
+    cost: 1
+    access: root
+  pe_apache:
+    process: apache
+    os: windows
+    prob: 0.9
+    cost: 1
+    access: root
+service_scan_cost: 1
+os_scan_cost: 1
+subnet_scan_cost: 1
+process_scan_cost: 1
+host_configurations:
+  (1, 0):
+    os: linux
+    services: [ssh, http]
+    processes: [tomcat, apache]
+    firewall:
+      (2, 0): [ssh, http]
+  (2, 0):
+    os: windows
+    services: [http]
+    processes: [apache, nginx]
+    firewall:
+      (1, 0): [http]
+      (3, 0): [http]
+  (3, 0):
+    os: linux
+    services: [ssh]
+    processes: [tomcat, nginx]
+    firewall:
+      (4, 0): [ssh]
+  (4, 0):
+    os: windows
+    services: [http]
+    processes: [apache, nginx]
+    firewall:
+      (5, 0): [http]
+  (5, 0):
+    os: linux
+    services: [ssh]
+    processes: [tomcat]
+    firewall:
+      (4, 0): [ssh]
+firewall:
+  (0, 1): [ssh, http]
+  (1, 0): []
+  (0, 2): [ssh]
+  (2, 0): [http]
+  (0, 3): []
+  (3, 0): []
+  (0, 4): []
+  (4, 0): [http]
+  (0, 5): []
+  (5, 0): [ssh]
+  (1, 2): [ssh, http]
+  (2, 1): [http]
+  (1, 3): [ssh]
+  (3, 1): [ssh, http]
+  (1, 4): []
+  (4, 1): [http]
+  (1, 5): []
+  (5, 1): []
+  (2, 3): [ssh]
+  (3, 2): [http]
+  (2, 4): [http]
+  (4, 2): []
+  (2, 5): [ssh]
+  (5, 2): []
+  (3, 4): [ssh, http]
+  (4, 3): [http]
+  (3, 5): [ssh]
+  (5, 3): []
+  (4, 5): [ssh, http]
+  (5, 4): []
+step_limit: 1000",Success
+"subnets: [1, 1, 1, 1, 1]
+topology: [[0, 1, 0, 1, 0, 0],
+           [1, 0, 1, 0, 1, 0],
+           [0, 1, 0, 1, 0, 1],
+           [1, 0, 1, 0, 1, 0],
+           [0, 1, 0, 1, 0, 1],
+           [0, 0, 1, 0, 1, 0]]
+sensitive_hosts:
+  (2, 0): 100
+  (4, 0): 100
+os:
+  - linux
+  - windows
+services:
+  - ssh
+  - http
+processes:
+  - tomcat
+  - apache
+  - iis
+exploits:
+  e_ssh:
+    service: ssh
+    os: linux
+    prob: 0.8
+    cost: 1
+    access: user
+  e_http:
+    service: http
+    os: windows
+    prob: 0.7
+    cost: 1
+    access: user
+privilege_escalation:
+  pe_apache:
+    process: apache
+    os: windows
+    prob: 0.9
+    cost: 1
+    access: root
+service_scan_cost: 1
+os_scan_cost: 1
+subnet_scan_cost: 1
+process_scan_cost: 1
+host_configurations:
+  (1, 0):
+    os: linux
+    services: [ssh, http]
+    processes: [tomcat, apache]
+    firewall:
+      (2, 0): [ssh]
+  (2, 0):
+    os: windows
+    services: [http]
+    processes: [apache, iis]
+    firewall:
+      (1, 0): [http]
+      (3, 0): [http]
+  (3, 0):
+    os: linux
+    services: [ssh]
+    processes: [tomcat]
+    firewall:
+      (4, 0): [ssh]
+  (4, 0):
+    os: windows
+    services: [http]
+    processes: [apache, iis]
+    firewall:
+      (5, 0): [http]
+  (5, 0):
+    os: linux
+    services: [ssh]
+    processes: [tomcat]
+    firewall:
+      (4, 0): [ssh]
+firewall:
+  (0, 1): [ssh, http]
+  (1, 0): []
+  (0, 2): []
+  (2, 0): [ssh]
+  (0, 3): []
+  (3, 0): []
+  (0, 4): []
+  (4, 0): [http]
+  (0, 5): [ssh]
+  (5, 0): []
+  (1, 2): [ssh, http]
+  (2, 1): [http]
+  (1, 3): []
+  (3, 1): [ssh]
+  (1, 4): []
+  (4, 1): [http]
+  (1, 5): []
+  (5, 1): []
+  (2, 3): [ssh]
+  (3, 2): [http]
+  (2, 4): []
+  (4, 2): []
+  (2, 5): [ssh]
+  (5, 2): []
+  (3, 4): [ssh, http]
+  (4, 3): [http]
+  (3, 5): []
+  (5, 3): []
+  (4, 5): [ssh, http]
+  (5, 4): []
+step_limit: 1000",Success
+"subnets: [1, 1, 1, 1, 1]
+topology: [[0, 1, 0, 1, 0, 0],
+           [1, 0, 1, 0, 1, 0],
+           [0, 1, 0, 0, 0, 1],
+           [1, 0, 0, 0, 1, 0],
+           [0, 1, 0, 1, 0, 1],
+           [0, 0, 1, 0, 1, 0]]
+sensitive_hosts:
+  (2, 0): 100
+  (4, 0): 100
+os:
+  - linux
+  - windows
+services:
+  - ssh
+  - http
+processes:
+  - tomcat
+  - apache
+  - nginx
+exploits:
+  e_ssh:
+    service: ssh
+    os: linux
+    prob: 0.8
+    cost: 1
+    access: user
+  e_http:
+    service: http
+    os: linux
+    prob: 0.7
+    cost: 1
+    access: user
+privilege_escalation:
+  pe_tomcat:
+    process: tomcat
+    os: linux
+    prob: 1.0
+    cost: 1
+    access: root
+  pe_apache:
+    process: apache
+    os: windows
+    prob: 0.9
+    cost: 1
+    access: root
+service_scan_cost: 1
+os_scan_cost: 1
+subnet_scan_cost: 1
+process_scan_cost: 1
+host_configurations:
+  (1, 0):
+    os: linux
+    services: [ssh]
+    processes: [tomcat, apache]
+    firewall:
+      (2, 0): [ssh]
+  (2, 0):
+    os: windows
+    services: [http]
+    processes: [apache, nginx]
+    firewall:
+      (1, 0): [http]
+      (3, 0): [http]
+  (3, 0):
+    os: linux
+    services: [ssh]
+    processes: [nginx]
+    firewall:
+      (4, 0): [ssh]
+  (4, 0):
+    os: windows
+    services: [http]
+    processes: [nginx]
+    firewall:
+      (5, 0): [http]
+  (5, 0):
+    os: linux
+    services: [ssh]
+    processes: [tomcat]
+    firewall:
+      (4, 0): [ssh]
+firewall:
+  (0, 1): [ssh]
+  (1, 0): []
+  (0, 2): []
+  (2, 0): [http]
+  (0, 3): [ssh]
+  (3, 0): []
+  (0, 4): []
+  (4, 0): []
+  (0, 5): []
+  (5, 0): []
+  (1, 2): [ssh, http]
+  (2, 1): []
+  (1, 3): []
+  (3, 1): [ssh]
+  (1, 4): [ssh, http]
+  (4, 1): []
+  (1, 5): []
+  (5, 1): []
+  (2, 3): []
+  (3, 2): []
+  (2, 4): [http]
+  (4, 2): []
+  (2, 5): []
+  (5, 2): [ssh]
+  (3, 4): [ssh]
+  (4, 3): []
+  (3, 5): []
+  (5, 3): []
+  (4, 5): [http, ssh]
+  (5, 4): []
+step_limit: 1000",Success
+"subnets: [1, 1, 1, 1, 1]
+topology: [[0, 0, 1, 0, 0, 0],
+           [0, 0, 0, 1, 0, 0],
+           [1, 0, 0, 0, 0, 1],
+           [0, 1, 0, 0, 0, 0],
+           [0, 0, 1, 0, 0, 0],
+           [0, 0, 0, 0, 0, 0]]
+sensitive_hosts:
+  (2, 0): 100
+  (5, 0): 100
+os:
+  - linux
+  - windows
+services:
+  - ssh
+  - http
+processes:
+  - tomcat
+  - nginx
+  - iis
+exploits:
+  e_ssh:
+    service: ssh
+    os: linux
+    prob: 0.8
+    cost: 1
+    access: user
+  e_http:
+    service: http
+    os: windows
+    prob: 0.7
+    cost: 1
+    access: user
+privilege_escalation:
+  pe_tomcat:
+    process: tomcat
+    os: linux
+    prob: 1.0
+    cost: 1
+    access: root
+  pe_nginx:
+    process: nginx
+    os: linux
+    prob: 0.9
+    cost: 1
+    access: root
+service_scan_cost: 1
+os_scan_cost: 1
+subnet_scan_cost: 1
+process_scan_cost: 1
+host_configurations:
+  (1, 0):
+    os: linux
+    services: [ssh, http]
+    processes: [tomcat, nginx]
+    firewall:
+      (3, 0): [ssh]
+  (2, 0):
+    os: windows
+    services: [http]
+    processes: [nginx, iis]
+    firewall:
+      (1, 0): [http]
+      (5, 0): [http]
+  (3, 0):
+    os: linux
+    services: [ssh]
+    processes: [tomcat]
+    firewall:
+      (4, 0): [ssh]
+  (4, 0):
+    os: windows
+    services: [http]
+    processes: [iis]
+    firewall:
+      (5, 0): [http]
+  (5, 0):
+    os: linux
+    services: [ssh]
+    processes: [tomcat, nginx]
+    firewall:
+      (2, 0): [ssh]
+firewall:
+  (0, 1): []
+  (1, 0): []
+  (0, 2): [ssh, http]
+  (2, 0): []
+  (0, 3): []
+  (3, 0): [ssh]
+  (0, 4): []
+  (4, 0): []
+  (0, 5): [ssh]
+  (5, 0): []
+  (1, 2): []
+  (2, 1): [http]
+  (1, 3): []
+  (3, 1): []
+  (1, 4): [ssh, http]
+  (4, 1): []
+  (1, 5): []
+  (5, 1): []
+  (2, 3): []
+  (3, 2): []
+  (2, 4): []
+  (4, 2): []
+  (2, 5): [http, ssh]
+  (5, 2): []
+  (3, 4): [ssh]
+  (4, 3): []
+  (3, 5): []
+  (5, 3): []
+  (4, 5): [http, ssh]
+  (5, 4): []
+step_limit: 1000",Success
+"subnets: [1, 1, 1, 1, 1, 1]
+topology: [
+ [0, 1, 1, 0, 0, 0, 1],
+ [1, 0, 0, 1, 0, 1, 0],
+ [1, 0, 0, 0, 1, 0, 0],
+ [0, 1, 0, 0, 0, 1, 1],
+ [0, 0, 1, 0, 0, 1, 0],
+ [0, 1, 0, 1, 1, 0, 0],
+ [1, 0, 0, 1, 0, 0, 0]
+]
+sensitive_hosts:
+  (2, 0): 50
+  (5, 0): 60
+os:
+  - linux
+  - windows
+services:
+  - ssh
+  - http
+processes:
+  - tomcat
+  - nginx
+  - iis
+exploits:
+  e_ssh:
+    service: ssh
+    os: linux
+    prob: 0.8
+    cost: 1
+    access: admin
+  e_http:
+    service: http
+    os: windows
+    prob: 0.75
+    cost: 2
+    access: root
+privilege_escalation:
+  pe_tomcat:
+    process: tomcat
+    os: linux
+    prob: 0.9
+    cost: 1
+    access: root
+  pe_nginx:
+    process: nginx
+    os: linux
+    prob: 0.7
+    cost: 2
+    access: admin
+service_scan_cost: 1
+os_scan_cost: 1
+subnet_scan_cost: 1
+process_scan_cost: 1
+host_configurations:
+  (1, 0):
+    os: linux
+    services: [ssh]
+    processes: [tomcat, nginx]
+    firewall:
+      (3, 0): [ssh]
+      (5, 0): [ssh]
+  (2, 0):
+    os: windows
+    services: [http]
+    processes: [iis]
+    firewall:
+      (1, 0): [http]
+      (4, 0): [http]
+  (3, 0):
+    os: linux
+    services: [ssh]
+    processes: [tomcat]
+    firewall:
+      (1, 0): [ssh]
+      (6, 0): [ssh]
+  (4, 0):
+    os: windows
+    services: [http]
+    processes: [iis]
+    firewall:
+      (2, 0): [http]
+      (5, 0): [http]
+  (5, 0):
+    os: linux
+    services: [ssh]
+    processes: [nginx, tomcat]
+    firewall:
+      (1, 0): [ssh]
+      (4, 0): [http]
+  (6, 0):
+    os: linux
+    services: [ssh]
+    processes: [nginx]
+    firewall:
+      (3, 0): [ssh]
+      (4, 0): [http]
+firewall:
+  (0, 1): [ssh]
+  (1, 0): [http]
+  (0, 2): [ssh]
+  (2, 0): []
+  (0, 3): []
+  (3, 0): [ssh]
+  (0, 4): []
+  (4, 0): [http]
+  (0, 5): [ssh, http]
+  (5, 0): []
+  (0, 6): [http]
+  (6, 0): [ssh]
+  (1, 2): []
+  (2, 1): [http]
+  (1, 3): [ssh]
+  (3, 1): []
+  (1, 4): []
+  (4, 1): []
+  (1, 5): [ssh]
+  (5, 1): [http]
+  (1, 6): []
+  (6, 1): []
+  (2, 3): []
+  (3, 2): [ssh]
+  (2, 4): [http]
+  (4, 2): [http]
+  (2, 5): []
+  (5, 2): [ssh]
+  (2, 6): []
+  (6, 2): []
+  (3, 4): [ssh]
+  (4, 3): []
+  (3, 5): [http]
+  (5, 3): [ssh]
+step_limit: 1000",Error
+"subnets: [1, 1, 1, 1, 1, 1]
+topology: [[0, 1, 0, 1, 0, 0, 0], 
+           [1, 0, 1, 0, 1, 0, 0],
+           [0, 1, 0, 0, 0, 1, 0],
+           [1, 0, 0, 0, 1, 0, 0],
+           [0, 1, 0, 1, 0, 0, 0],
+           [0, 0, 1, 0, 0, 0, 1],
+           [0, 0, 0, 0, 0, 1, 0]]
+sensitive_hosts:
+  (1, 0): 100
+  (3, 0): 100
+  (6, 0): 100
+os:
+  - linux
+  - windows
+services:
+  - ssh
+  - http
+processes:
+  - apache
+  - nginx
+exploits:
+  e_ssh:
+    service: ssh
+    os: linux
+    prob: 0.8
+    cost: 1
+    access: user
+  e_http:
+    service: http
+    os: windows
+    prob: 0.7
+    cost: 1
+    access: user
+privilege_escalation:
+  pe_apache:
+    process: apache
+    os: linux
+    prob: 1.0
+    cost: 1
+    access: root
+  pe_nginx:
+    process: nginx
+    os: windows
+    prob: 0.9
+    cost: 1
+    access: root
+service_scan_cost: 1
+os_scan_cost: 1
+subnet_scan_cost: 1
+process_scan_cost: 1
+host_configurations:
+  (1, 0):
+    os: linux
+    services: [ssh, http]
+    processes: [apache]
+    firewall:
+      (4, 0): [ssh]
+  (2, 0):
+    os: windows
+    services: [http]
+    processes: [nginx]
+    firewall:
+      (1, 0): [http]
+      (5, 0): [http]
+  (3, 0):
+    os: linux
+    services: [ssh]
+    processes: [apache]
+    firewall:
+      (1, 0): [ssh]
+      (6, 0): [ssh]
+  (4, 0):
+    os: linux
+    services: [ssh]
+    processes: [apache]
+    firewall:
+      (1, 0): [ssh]
+  (5, 0):
+    os: windows
+    services: [http]
+    processes: [nginx]
+    firewall:
+      (2, 0): [http]
+  (6, 0):
+    os: linux
+    services: [ssh]
+    processes: [apache]
+    firewall:
+      (3, 0): [ssh]
+firewall:
+  (0, 1): [ssh, http]
+  (1, 0): []
+  (0, 2): [http]
+  (2, 0): []
+  (0, 3): []
+  (3, 0): [ssh]
+  (0, 4): [ssh]
+  (4, 0): []
+  (0, 5): [http]
+  (5, 0): []
+  (0, 6): [ssh]
+  (6, 0): []
+  (1, 2): [http]
+  (2, 1): []
+  (1, 3): [ssh]
+  (3, 1): []
+  (1, 4): [ssh]
+  (4, 1): []
+  (1, 5): []
+  (5, 1): [http]
+  (1, 6): []
+  (6, 1): [ssh]
+  (2, 3): []
+  (3, 2): [ssh]
+  (2, 4): []
+  (4, 2): [http]
+  (2, 5): [http]
+  (5, 2): []
+  (2, 6): []
+  (6, 2): []
+  (3, 4): []
+  (4, 3): [ssh]
+  (3, 5): []
+  (5, 3): []
+  (3, 6): [ssh]
+  (6, 3): []
+  (4, 5): [http]
+  (5, 4): []
+  (4, 6): []
+  (6, 4): [ssh]
+  (5, 6): []
+  (6, 5): []
+step_limit: 1000",Success
+"subnets: [1, 1, 1, 1, 1]
+topology: [[0, 1, 1, 0, 0, 0],
+           [1, 0, 0, 1, 0, 0],
+           [1, 0, 0, 0, 1, 0],
+           [0, 1, 0, 0, 0, 1],
+           [0, 0, 1, 0, 0, 1],
+           [0, 0, 0, 1, 1, 0]]
+sensitive_hosts:
+  (2, 0): 100
+  (5, 0): 100
+os:
+  - linux
+  - windows
+services:
+  - ssh
+  - http
+processes:
+  - tomcat
+  - apache
+  - iis
+exploits:
+  e_ssh:
+    service: ssh
+    os: linux
+    prob: 0.8
+    cost: 1
+    access: user
+  e_http:
+    service: http
+    os: windows
+    prob: 0.7
+    cost: 1
+    access: user
+privilege_escalation:
+  pe_tomcat:
+    process: tomcat
+    os: linux
+    prob: 1.0
+    cost: 1
+    access: root
+  pe_iis:
+    process: iis
+    os: windows
+    prob: 0.9
+    cost: 1
+    access: root
+service_scan_cost: 1
+os_scan_cost: 1
+subnet_scan_cost: 1
+process_scan_cost: 1
+host_configurations:
+  (1, 0):
+    os: linux
+    services: [ssh, http]
+    processes: [tomcat, apache]
+    firewall:
+      (3, 0): [ssh, http]
+  (2, 0):
+    os: windows
+    services: [http]
+    processes: [apache, iis]
+    firewall:
+      (1, 0): [http]
+      (4, 0): [http]
+  (3, 0):
+    os: linux
+    services: [ssh]
+    processes: [tomcat]
+    firewall:
+      (4, 0): [ssh]
+  (4, 0):
+    os: windows
+    services: [http]
+    processes: [apache, iis]
+    firewall:
+      (5, 0): [http]
+  (5, 0):
+    os: linux
+    services: [ssh]
+    processes: [tomcat]
+    firewall:
+      (1, 0): [ssh]
+firewall:
+  (0, 1): [ssh, http]
+  (1, 0): []
+  (0, 2): [ssh, http]
+  (2, 0): []
+  (0, 4): [ssh]
+  (4, 0): []
+  (1, 3): [ssh]
+  (3, 1): [ssh, http]
+  (1, 5): [http]
+  (5, 1): []
+  (2, 3): [ssh]
+  (3, 2): []
+  (2, 4): []
+  (4, 2): [http]
+  (2, 5): []
+  (5, 2): [ssh]
+  (3, 4): [ssh, http]
+  (4, 3): [http]
+  (3, 5): []
+  (5, 3): []
+  (4, 5): [ssh, http]
+  (5, 4): []
+step_limit: 1000",Success
+"subnets: [1, 1, 1, 1, 1]
+topology: [[0, 1, 0, 0, 0, 0],
+           [1, 0, 1, 0, 0, 0],
+           [0, 1, 0, 1, 0, 0],
+           [0, 0, 1, 0, 1, 0],
+           [0, 0, 0, 1, 0, 1],
+           [0, 0, 0, 0, 1, 0]]
+sensitive_hosts:
+  (2, 0): 100
+  (4, 0): 100
+os:
+  - linux
+  - windows
+services:
+  - ssh
+  - http
+processes:
+  - tomcat
+  - apache
+  - iis
+exploits:
+  e_ssh:
+    service: ssh
+    os: linux
+    prob: 0.8
+    cost: 1
+    access: user
+  e_http:
+    service: http
+    os: windows
+    prob: 0.7
+    cost: 1
+    access: user
+privilege_escalation:
+  pe_tomcat:
+    process: tomcat
+    os: linux
+    prob: 1.0
+    cost: 1
+    access: root
+  pe_apache:
+    process: apache
+    os: windows
+    prob: 0.9
+    cost: 1
+    access: root
+service_scan_cost: 1
+os_scan_cost: 1
+subnet_scan_cost: 1
+process_scan_cost: 1
+host_configurations:
+  (1, 0):
+    os: linux
+    services: [ssh, http]
+    processes: [tomcat, apache]
+    firewall:
+      (2, 0): [ssh]
+  (2, 0):
+    os: windows
+    services: [http]
+    processes: [apache, iis]
+    firewall:
+      (1, 0): [http]
+      (3, 0): [http]
+  (3, 0):
+    os: linux
+    services: [ssh]
+    processes: [tomcat]
+    firewall:
+      (4, 0): [ssh]
+  (4, 0):
+    os: windows
+    services: [http]
+    processes: [apache, iis]
+    firewall:
+      (5, 0): [http]
+  (5, 0):
+    os: linux
+    services: [ssh]
+    processes: [tomcat]
+    firewall:
+      (4, 0): [ssh]
+firewall:
+  (0, 1): [ssh, http]
+  (1, 0): []
+  (0, 2): []
+  (2, 0): [ssh]
+  (0, 3): []
+  (3, 0): []
+  (0, 4): []
+  (4, 0): [http]
+  (0, 5): [ssh]
+  (5, 0): []
+  (1, 2): [ssh, http]
+  (2, 1): [http]
+  (1, 3): []
+  (3, 1): [ssh]
+  (1, 4): []
+  (4, 1): [http]
+  (1, 5): []
+  (5, 1): []
+  (2, 3): [ssh]
+  (3, 2): [http]
+  (2, 4): []
+  (4, 2): [http]
+  (2, 5): [ssh]
+  (5, 2): []
+  (3, 4): [ssh, http]
+  (4, 3): [http]
+  (3, 5): []
+  (5, 3): []
+  (4, 5): [ssh, http]
+  (5, 4): []
+step_limit: 1000",Success
+"subnets: [1, 1, 1, 1, 1, 1]
+topology: [[0, 0, 0, 1, 0, 0],
+           [0, 0, 0, 0, 1, 0],
+           [0, 0, 0, 0, 0, 1],
+           [1, 0, 0, 0, 0, 0],
+           [0, 1, 0, 0, 0, 0],
+           [0, 0, 1, 0, 0, 0]]
+sensitive_hosts:
+  (2, 0): 100
+  (5, 0): 100
+os:
+  - linux
+  - windows
+services:
+  - ssh
+  - http
+processes:
+  - tomcat
+  - apache
+  - iis
+exploits:
+  e_ssh:
+    service: ssh
+    os: linux
+    prob: 0.8
+    cost: 1
+    access: user
+  e_http:
+    service: http
+    os: windows
+    prob: 0.7
+    cost: 1
+    access: user
+privilege_escalation:
+  pe_tomcat:
+    process: tomcat
+    os: linux
+    prob: 1.0
+    cost: 1
+    access: root
+  pe_apache:
+    process: apache
+    os: windows
+    prob: 0.9
+    cost: 1
+    access: root
+service_scan_cost: 1
+os_scan_cost: 1
+subnet_scan_cost: 1
+process_scan_cost: 1
+host_configurations:
+  (1, 0):
+    os: linux
+    services: [ssh, http]
+    processes: [tomcat, apache]
+    firewall:
+      (2, 0): [ssh]
+  (2, 0):
+    os: windows
+    services: [http]
+    processes: [apache, iis]
+    firewall:
+      (1, 0): [http]
+      (3, 0): [http]
+  (3, 0):
+    os: linux
+    services: [ssh]
+    processes: [tomcat]
+    firewall:
+      (4, 0): [ssh]
+  (4, 0):
+    os: windows
+    services: [http]
+    processes: [apache, iis]
+    firewall:
+      (5, 0): [http]
+  (5, 0):
+    os: linux
+    services: [ssh]
+    processes: [tomcat]
+    firewall:
+      (4, 0): [ssh]
+firewall:
+  (0, 1): [ssh, http]
+  (1, 0): []
+  (0, 2): []
+  (2, 0): [ssh]
+  (0, 3): []
+  (3, 0): []
+  (0, 4): []
+  (4, 0): [http]
+  (0, 5): [ssh]
+  (5, 0): []
+  (1, 2): [ssh, http]
+  (2, 1): [http]
+  (1, 3): []
+  (3, 1): [ssh]
+  (1, 4): []
+  (4, 1): [http]
+  (1, 5): []
+  (5, 1): []
+  (2, 3): [ssh]
+  (3, 2): [http]
+  (2, 4): []
+  (4, 2): []
+  (2, 5): [ssh]
+  (5, 2): []
+  (3, 4): [ssh, http]
+  (4, 3): [http]
+  (3, 5): []
+  (5, 3): []
+  (4, 5): [ssh, http]
+  (5, 4): []
+step_limit: 1000",Error
+"subnets: [1, 1, 1, 1, 1]
+topology: [[0, 1, 0, 0, 1, 0],
+           [1, 0, 1, 0, 0, 1],
+           [0, 1, 0, 1, 0, 0],
+           [0, 0, 1, 0, 1, 1],
+           [1, 0, 0, 1, 0, 0],
+           [0, 1, 0, 1, 0, 0]]
+sensitive_hosts:
+  (3, 0): 100
+  (5, 0): 100
+os:
+  - linux
+  - windows
+services:
+  - ssh
+  - http
+processes:
+  - tomcat
+  - iis
+  - apache
+exploits:
+  e_ssh:
+    service: ssh
+    os: linux
+    prob: 0.8
+    cost: 1
+    access: user
+  e_http:
+    service: http
+    os: windows
+    prob: 0.75
+    cost: 1
+    access: user
+privilege_escalation:
+  pe_tomcat:
+    process: tomcat
+    os: linux
+    prob: 1.0
+    cost: 1
+    access: root
+  pe_iis:
+    process: iis
+    os: windows
+    prob: 0.9
+    cost: 1
+    access: root
+service_scan_cost: 1
+os_scan_cost: 1
+subnet_scan_cost: 1
+process_scan_cost: 1
+host_configurations:
+  (1, 0):
+    os: linux
+    services: [ssh]
+    processes: [tomcat, apache]
+    firewall:
+      (3, 0): [ssh]
+  (2, 0):
+    os: windows
+    services: [http]
+    processes: [iis, apache]
+    firewall:
+      (1, 0): [http]
+  (3, 0):
+    os: linux
+    services: [ssh]
+    processes: [tomcat]
+    firewall:
+      (5, 0): [ssh]
+  (4, 0):
+    os: windows
+    services: [http]
+    processes: [iis]
+    firewall:
+      (1, 0): [http]
+  (5, 0):
+    os: linux
+    services: [ssh]
+    processes: [apache, tomcat]
+    firewall:
+      (4, 0): [ssh]
+firewall:
+  (0, 1): [ssh]
+  (1, 0): []
+  (0, 2): []
+  (2, 0): [http]
+  (0, 3): []
+  (3, 0): [ssh]
+  (0, 4): [ssh]
+  (4, 0): []
+  (0, 5): []
+  (5, 0): [ssh]
+  (1, 2): [http]
+  (2, 1): [ssh]
+  (1, 3): []
+  (3, 1): []
+  (1, 4): [http]
+  (4, 1): []
+  (1, 5): [ssh]
+  (5, 1): []
+  (2, 3): []
+  (3, 2): [http]
+  (2, 4): []
+  (4, 2): [http]
+  (2, 5): []
+  (5, 2): [ssh]
+  (3, 4): [http]
+  (4, 3): [ssh]
+  (3, 5): []
+  (5, 3): []
+  (4, 5): []
+  (5, 4): [ssh]
+step_limit: 1000",Success
+"subnets: [1, 1, 1, 1, 1, 1, 1]
+topology: [[0, 1, 1, 0, 0, 0, 0],
+           [1, 0, 0, 1, 0, 0, 0],
+           [1, 0, 0, 1, 1, 0, 0],
+           [0, 1, 1, 0, 0, 1, 0],
+           [0, 0, 1, 0, 0, 1, 1],
+           [0, 0, 0, 1, 1, 0, 1],
+           [0, 0, 0, 0, 1, 1, 0]]
+sensitive_hosts:
+  (3, 0): 100
+  (5, 0): 100
+os:
+  - linux
+  - windows
+services:
+  - ssh
+  - http
+  - ftp
+processes:
+  - apache
+  - nginx
+exploits:
+  e_ssh:
+    service: ssh
+    os: linux
+    prob: 0.8
+    cost: 1
+    access: user
+  e_http:
+    service: http
+    os: windows
+    prob: 0.7
+    cost: 1
+    access: user
+privilege_escalation:
+  pe_apache:
+    process: apache
+    os: linux
+    prob: 0.9
+    cost: 1
+    access: root
+  pe_nginx:
+    process: nginx
+    os: windows
+    prob: 0.85
+    cost: 1
+    access: root
+service_scan_cost: 1
+os_scan_cost: 1
+subnet_scan_cost: 1
+process_scan_cost: 1
+host_configurations:
+  (1, 0):
+    os: linux
+    services: [ssh, http]
+    processes: [apache]
+    firewall:
+      (2, 0): [ssh]
+      (4, 0): [http]
+  (2, 0):
+    os: windows
+    services: [http, ftp]
+    processes: [nginx]
+    firewall:
+      (1, 0): [http]
+      (3, 0): [ftp]
+  (3, 0):
+    os: linux
+    services: [ssh]
+    processes: [apache]
+    firewall:
+      (5, 0): [ssh]
+  (4, 0):
+    os: windows
+    services: [http, ftp]
+    processes: [nginx]
+    firewall:
+      (6, 0): [ftp]
+  (5, 0):
+    os: linux
+    services: [ssh, ftp]
+    processes: [apache]
+    firewall:
+      (7, 0): [ssh]
+  (6, 0):
+    os: windows
+    services: [http]
+    processes: [nginx]
+    firewall:
+      (5, 0): [http]
+  (7, 0):
+    os: linux
+    services: [ssh]
+    processes: [apache]
+firewall:
+  (0, 1): [ssh, http]
+  (1, 0): [ssh]
+  (0, 2): [http, ftp]
+  (2, 0): [ftp]
+  (0, 3): []
+  (3, 0): [ssh]
+  (0, 4): []
+  (4, 0): [http]
+  (0, 5): []
+  (5, 0): [ssh, ftp]
+  (0, 6): []
+  (6, 0): [ftp]
+  (0, 7): []
+  (7, 0): [ssh]
+  (1, 3): [ssh, http]
+  (3, 1): [ftp]
+  (2, 4): [http]
+  (4, 2): [ftp]
+  (3, 5): [ssh]
+  (5, 3): [ftp]
+  (4, 6): [http, ftp]
+  (6, 4): [http]
+  (5, 7): [ssh, ftp]
+  (7, 5): [ssh]
+step_limit: 1000",Error
+"subnets: [1, 1, 1, 1, 1, 1, 1]
+topology: [[1, 0, 0, 1, 0, 0, 0],
+           [0, 1, 0, 0, 1, 0, 0],
+           [0, 0, 1, 0, 0, 1, 0],
+           [1, 0, 0, 1, 0, 0, 1],
+           [0, 1, 0, 0, 1, 0, 0],
+           [0, 0, 1, 0, 0, 1, 1],
+           [0, 0, 0, 1, 0, 1, 1]]
+sensitive_hosts:
+  (4, 0): 100
+  (6, 0): 100
+os:
+  - linux
+  - windows
+services:
+  - ssh
+  - http
+processes:
+  - apache
+  - nginx
+  - iis
+exploits:
+  e_ssh:
+    service: ssh
+    os: linux
+    prob: 0.85
+    cost: 1
+    access: user
+  e_http:
+    service: http
+    os: windows
+    prob: 0.75
+    cost: 1
+    access: user
+privilege_escalation:
+  pe_apache:
+    process: apache
+    os: linux
+    prob: 0.95
+    cost: 1
+    access: root
+  pe_nginx:
+    process: nginx
+    os: windows
+    prob: 0.90
+    cost: 1
+    access: root
+service_scan_cost: 1
+os_scan_cost: 1
+subnet_scan_cost: 1
+process_scan_cost: 1
+host_configurations:
+  (1, 0):
+    os: linux
+    services: [ssh, http]
+    processes: [apache, iis]
+    firewall:
+      (4, 0): [ssh]
+  (2, 0):
+    os: windows
+    services: [http]
+    processes: [nginx, iis]
+    firewall:
+      (5, 0): [http]
+  (3, 0):
+    os: linux
+    services: [ssh]
+    processes: [nginx]
+    firewall:
+      (6, 0): [ssh]
+  (4, 0):
+    os: linux
+    services: [ssh]
+    processes: [apache, iis]
+    firewall:
+      (1, 0): [ssh, http]
+  (5, 0):
+    os: windows
+    services: [http]
+    processes: [apache]
+    firewall:
+      (2, 0): [http]
+  (6, 0):
+    os: linux
+    services: [ssh]
+    processes: [nginx, iis]
+    firewall:
+      (7, 0): [ssh]
+  (7, 0):
+    os: windows
+    services: [http]
+    processes: [nginx]
+    firewall:
+      (4, 0): [http]
+firewall:
+  (0, 3): [ssh]
+  (3, 0): []
+  (1, 4): [ssh, http]
+  (4, 1): []
+  (2, 5): [http]
+  (5, 2): []
+  (3, 6): [ssh]
+  (6, 3): []
+  (4, 6): [ssh, http]
+  (6, 4): []
+  (5, 6): []
+  (6, 5): [http, ssh]
+  (6, 7): [http]
+  (7, 6): [http, ssh]
+step_limit: 1500",Error
+"subnets: [1, 1, 1, 1, 1]
+topology: [[0, 1, 0, 1, 0],
+           [1, 0, 1, 0, 1],
+           [0, 1, 0, 1, 0],
+           [1, 0, 1, 0, 1],
+           [0, 1, 0, 1, 0]]
+sensitive_hosts:
+  (2, 0): 100
+  (4, 0): 100
+os:
+  - linux
+  - windows
+services:
+  - ssh
+  - http
+processes:
+  - tomcat
+  - iis
+exploits:
+  e_ssh:
+    service: ssh
+    os: linux
+    prob: 0.8
+    cost: 1
+    access: user
+  e_http:
+    service: http
+    os: windows
+    prob: 0.7
+    cost: 1
+    access: user
+privilege_escalation:
+  pe_tomcat:
+    process: tomcat
+    os: linux
+    prob: 1.0
+    cost: 1
+    access: root
+  pe_iis:
+    process: iis
+    os: windows
+    prob: 0.9
+    cost: 1
+    access: root
+service_scan_cost: 1
+os_scan_cost: 1
+subnet_scan_cost: 1
+process_scan_cost: 1
+host_configurations:
+  (1, 0):
+    os: linux
+    services: [ssh, http]
+    processes: [tomcat]
+    firewall:
+      (3, 0): [ssh, http]
+  (2, 0):
+    os: windows
+    services: [http]
+    processes: [iis]
+    firewall:
+      (1, 0): [http]
+      (4, 0): [http]
+  (3, 0):
+    os: linux
+    services: [ssh]
+    processes: [tomcat]
+    firewall:
+      (4, 0): [ssh]
+  (4, 0):
+    os: windows
+    services: [http]
+    processes: [iis]
+    firewall:
+      (5, 0): [http]
+  (5, 0):
+    os: linux
+    services: [ssh]
+    processes: [tomcat]
+    firewall:
+      (1, 0): [ssh]
+firewall:
+  (0, 1): [ssh, http]
+  (1, 0): []
+  (0, 2): []
+  (2, 0): [http]
+  (0, 4): [ssh]
+  (4, 0): []
+  (1, 3): [ssh, http]
+  (3, 1): [ssh]
+  (1, 5): [http]
+  (5, 1): []
+  (2, 3): [ssh]
+  (3, 2): []
+  (2, 4): []
+  (4, 2): [http]
+  (2, 5): []
+  (5, 2): []
+  (3, 4): [ssh, http]
+  (4, 3): [http]
+  (3, 5): []
+  (5, 3): []
+  (4, 5): [ssh, http]
+  (5, 4): []
+step_limit: 1000",Error
+"subnets: [1, 1, 1, 1]
+topology: [[0, 1, 0, 0, 0],
+           [1, 0, 0, 0, 0],
+           [0, 0, 0, 1, 0],
+           [0, 0, 0, 0, 1],
+           [0, 0, 1, 0, 0]]
+sensitive_hosts:
+  (2, 0): 100
+  (4, 0): 100
+os:
+  - linux
+  - windows
+services:
+  - Web Service
+  - Database Service
+processes:
+  - Web Server Process
+  - Database Process
+exploits:
+  e_sql_injection:
+    service: Web Service
+    os: windows
+    prob: 0.7
+    cost: 1
+    access: user
+  e_buffer_overflow:
+    service: Database Service
+    os: linux
+    prob: 0.9
+    cost: 1
+    access: user
+privilege_escalation:
+  pe_kernel_exploit:
+    process: Web Server Process
+    os: linux
+    prob: 1.0
+    cost: 1
+    access: root
+  pe_misconfigured_permissions:
+    process: Database Process
+    os: windows
+    prob: 0.8
+    cost: 1
+    access: root
+service_scan_cost: 1
+os_scan_cost: 1
+subnet_scan_cost: 1
+process_scan_cost: 1
+host_configurations:
+  (1, 0):
+    os: linux
+    services: [Web Service]
+    processes: [Web Server Process]
+    firewall:
+      (2, 0): [Web Service]
+  (2, 0):
+    os: windows
+    services: [Database Service]
+    processes: [Database Process]
+    firewall:
+      (1, 0): [Database Service]
+  (3, 0):
+    os: linux
+    services: [Web Service]
+    processes: [Web Server Process]
+    firewall:
+      (4, 0): [Web Service]
+  (4, 0):
+    os: windows
+    services: [Database Service]
+    processes: [Database Process]
+    firewall:
+      (3, 0): [Database Service]
+firewall:
+  (0, 1): [Web Service]
+  (1, 0): []
+  (0, 2): []
+  (2, 0): [Database Service]
+  (0, 3): []
+  (3, 0): []
+  (0, 4): []
+  (4, 0): [Web Service]
+step_limit: 1000",Error
+"subnets: [1, 1, 1, 1, 1]
+topology: [[0, 1, 0, 0, 0],
+           [1, 0, 1, 0, 0],
+           [0, 1, 0, 1, 0],
+           [0, 0, 1, 0, 1],
+           [0, 0, 0, 1, 0]]
+sensitive_hosts:
+  (1, 0): 100
+  (3, 0): 100
+os:
+  - linux
+  - windows
+services:
+  - ssh
+  - http
+processes:
+  - tomcat
+  - apache
+  - nginx
+exploits:
+  e_ssh:
+    service: ssh
+    os: linux
+    prob: 0.8
+    cost: 1
+    access: user
+  e_http:
+    service: http
+    os: windows
+    prob: 0.7
+    cost: 1
+    access: user
+privilege_escalation:
+  pe_tomcat:
+    process: tomcat
+    os: linux
+    prob: 1.0
+    cost: 1
+    access: root
+  pe_apache:
+    process: apache
+    os: windows
+    prob: 0.9
+    cost: 1
+    access: root
+service_scan_cost: 1
+os_scan_cost: 1
+subnet_scan_cost: 1
+process_scan_cost: 1
+host_configurations:
+  (0, 0):
+    os: linux
+    services: [ssh, http]
+    processes: [tomcat, nginx]
+    firewall:
+      (1, 0): [http]
+  (1, 0):
+    os: windows
+    services: [http]
+    processes: [apache, nginx]
+    firewall:
+      (2, 0): [http]
+  (2, 0):
+    os: linux
+    services: [ssh]
+    processes: [tomcat]
+    firewall:
+      (3, 0): [ssh]
+  (3, 0):
+    os: windows
+    services: [http]
+    processes: [apache, nginx]
+    firewall:
+      (4, 0): [http]
+  (4, 0):
+    os: linux
+    services: [ssh]
+    processes: [tomcat, nginx]
+    firewall:
+      (0, 0): [ssh]
+firewall:
+  (0, 1): [ssh]
+  (1, 0): []
+  (1, 2): [http]
+  (2, 1): []
+  (2, 3): [ssh]
+  (3, 2): []
+  (3, 4): [http]
+  (4, 3): []
+  (4, 0): [ssh]
+  (0, 4): []
+step_limit: 1000",Error
+"subnets: [1, 1, 1, 1, 1]
+topology: [[0, 1, 0, 0, 0, 0],
+           [1, 0, 1, 0, 1, 0],
+           [0, 1, 0, 1, 0, 0],
+           [0, 0, 1, 0, 1, 0],
+           [0, 1, 0, 1, 0, 1],
+           [0, 0, 0, 0, 1, 0]]
+sensitive_hosts:
+  (1, 0): 100
+  (3, 0): 100
+os:
+  - linux
+  - windows
+services:
+  - ssh
+  - http
+processes:
+  - tomcat
+  - apache
+  - iis
+exploits:
+  e_ssh:
+    service: ssh
+    os: linux
+    prob: 0.8
+    cost: 1
+    access: user
+  e_http:
+    service: http
+    os: windows
+    prob: 0.7
+    cost: 1
+    access: user
+privilege_escalation:
+  pe_tomcat:
+    process: tomcat
+    os: linux
+    prob: 1.0
+    cost: 1
+    access: root
+  pe_apache:
+    process: apache
+    os: windows
+    prob: 0.9
+    cost: 1
+    access: root
+service_scan_cost: 1
+os_scan_cost: 1
+subnet_scan_cost: 1
+process_scan_cost: 1
+host_configurations:
+  (1, 0):
+    os: linux
+    services: [ssh, http]
+    processes: [tomcat, apache]
+    firewall:
+      (2, 0): [ssh]
+  (2, 0):
+    os: windows
+    services: [http]
+    processes: [apache, iis]
+    firewall:
+      (1, 0): [http]
+      (3, 0): [http]
+  (3, 0):
+    os: linux
+    services: [ssh]
+    processes: [tomcat]
+    firewall:
+      (4, 0): [ssh]
+  (4, 0):
+    os: windows
+    services: [http]
+    processes: [apache, iis]
+    firewall:
+      (5, 0): [http]
+  (5, 0):
+    os: linux
+    services: [ssh]
+    processes: [tomcat]
+    firewall:
+      (1, 0): [ssh]
+firewall:
+  (0, 1): [ssh, http]
+  (1, 0): []
+  (0, 2): []
+  (2, 0): [ssh]
+  (0, 3): []
+  (3, 0): []
+  (0, 4): []
+  (4, 0): [http]
+  (0, 5): [ssh]
+  (5, 0): []
+  (1, 2): [ssh, http]
+  (2, 1): [http]
+  (1, 3): []
+  (3, 1): [ssh]
+  (1, 4): []
+  (4, 1): [http]
+  (1, 5): []
+  (5, 1): []
+  (2, 3): [ssh]
+  (3, 2): [http]
+  (2, 4): [http]
+  (4, 2): []
+  (2, 5): [ssh]
+  (5, 2): []
+  (3, 4): [ssh, http]
+  (4, 3): [http]
+  (3, 5): []
+  (5, 3): []
+  (4, 5): [ssh, http]
+  (5, 4): []
+step_limit: 1000",Success
+"subnets: [1, 1, 1, 1, 1, 1, 1, 1]
+topology: [[1, 0, 0, 0, 0, 0, 0, 0],
+           [0, 1, 0, 0, 0, 0, 0, 0],
+           [0, 0, 1, 0, 0, 0, 0, 0],
+           [0, 0, 0, 1, 0, 0, 0, 0],
+           [0, 0, 0, 0, 1, 0, 0, 0],
+           [0, 0, 0, 0, 0, 1, 0, 0],
+           [0, 0, 0, 0, 0, 0, 1, 0],
+           [0, 0, 0, 0, 0, 0, 0, 1]]
+sensitive_hosts:
+  (4, 0): 100
+  (5, 0): 100
+os:
+  - linux
+  - windows
+services:
+  - ssh
+  - http
+processes:
+  - tomcat
+  - apache
+  - nginx
+  - iis
+exploits:
+  e_ssh_linux:
+    service: ssh
+    os: linux
+    prob: 0.8
+    cost: 1
+    access: user
+  e_http_windows:
+    service: http
+    os: windows
+    prob: 0.7
+    cost: 1
+    access: user
+  e_ssh_windows:
+    service: ssh
+    os: windows
+    prob: 0.75
+    cost: 1
+    access: user
+privilege_escalation:
+  pe_tomcat:
+    process: tomcat
+    os: linux
+    prob: 1.0
+    cost: 1
+    access: root
+  pe_apache:
+    process: apache
+    os: windows
+    prob: 0.9
+    cost: 1
+    access: root
+service_scan_cost: 1
+os_scan_cost: 1
+subnet_scan_cost: 1
+process_scan_cost: 1
+host_configurations:
+  (0, 0):
+    os: linux
+    services: [ssh]
+    processes: [tomcat]
+  (1, 0):
+    os: windows
+    services: [http]
+    processes: [apache]
+  (2, 0):
+    os: linux
+    services: [ssh]
+    processes: [nginx]
+  (3, 0):
+    os: windows
+    services: [http]
+    processes: [iis]
+  (4, 0):
+    os: linux
+    services: [ssh]
+    processes: [tomcat]
+  (5, 0):
+    os: linux
+    services: [ssh]
+    processes: [apache]
+  (6, 0):
+    os: windows
+    services: [http]
+    processes: [nginx]
+  (7, 0):
+    os: windows
+    services: [http]
+    processes: [iis]
+firewall:
+  (0, 1): []
+  (1,0): []
+  (0, 2): []
+  (2, 0): []
+  (0, 3): []
+  (3, 0): []
+  (0, 4): []
+  (4, 0): []
+  (0, 5): []
+  (5, 0): []
+  (0, 6): []
+  (6, 0): []
+  (0, 7): []
+  (7, 0): []
+  (1, 2): []
+  (2,1): []
+  (1, 3): []
+  (3,1): []
+  (1, 4): []
+  (4,1): []
+  (1, 5): []
+  (5,1): []
+  (1, 6): []
+  (6,1): []
+  (1, 7): []
+  (7,1): []
+  (2, 3): []
+  (3,2): []
+  (2, 4): []
+  (4,2): []
+  (2, 5): []
+  (5,2): []
+  (2, 6): []
+  (6,2): []
+  (2, 7): []
+  (7,2): []
+  (3, 4): []
+  (4,3): []
+  (3, 5): []
+  (5,3): []
+  (3, 6): []
+  (6, 3): []
+  (3, 7): []
+  (7,3): []
+  (4, 5): []
+  (5,4): []
+  (4, 6): []
+  (6,4): []
+  (4, 7): []
+  (7, 4): []
+  (5, 6): []
+  (6, 5): []
+  (5, 7): []
+  (7,5): []
+step_limit: 1000",Error
+"subnets: [1, 1, 1, 1, 1]
+topology: [[1, 1, 0, 0, 1],
+           [1, 1, 1, 0, 0],
+           [0, 1, 1, 1, 0],
+           [0, 0, 1, 1, 1],
+           [1, 0, 0, 1, 1]]
+sensitive_hosts:
+  (1, 0): 100  # Database Server
+  (3, 0): 100  # Email Server
+os:
+  - linux
+  - windows
+services:
+  - http
+  - smtp
+processes:
+  - apache_httpd
+  - postfix
+exploits:
+  e_sql_injection:
+    service: http
+    os: linux
+    prob: 0.7
+    cost: 2
+    access: user
+  e_buffer_overflow:
+    service: smtp
+    os: linux
+    prob: 0.8
+    cost: 2
+    access: admin
+privilege_escalation:
+  pe_kernel_exploit:
+    process: apache_httpd
+    os: linux
+    prob: 0.9
+    cost: 1
+    access: root
+  pe_uac_bypass:
+    process: postfix
+    os: windows
+    prob: 0.8
+    cost: 2
+    access: root
+service_scan_cost: 1
+os_scan_cost: 1
+subnet_scan_cost: 1
+process_scan_cost: 1
+host_configurations:
+  (0, 0):  # Host 1: Web Server
+    os: linux
+    services: [http]
+    processes: [apache_httpd]
+    firewall:
+      (4, 0): [http]
+  (1, 0):  # Host 2: Database Server
+    os: linux
+    services: [http]
+    processes: [apache_httpd]
+    firewall:
+      (2, 0): [http]
+  (2, 0):  # Host 3: Email Server
+    os: linux
+    services: [smtp]
+    processes: [postfix]
+    firewall:
+      (3, 0): [smtp]
+  (3, 0):  # Host 4: File Server
+    os: windows
+    services: [smtp]
+    processes: [postfix]
+    firewall:
+      (4, 0): [smtp]
+  (4, 0):  # Host 5: Administrative Workstation
+    os: windows
+    services: [http]
+    processes: [postfix]
+    firewall:
+      (0, 0): [http]
+      (3, 0): [smtp]
+firewall:
+  (0, 1): [http]
+  (1, 0): [http]
+  (1, 2): [http]
+  (2, 1): [smtp]
+  (1, 3): []
+  (3, 1): [smtp]
+  (2, 3): [smtp]
+  (3, 2): [smtp]
+  (1, 4): [http]
+  (4, 1): [http]
+  (3, 4): [smtp]
+  (4, 3): [smtp]
+step_limit: 1000",Error
+"subnets: [1, 1, 1, 1, 1]
+topology: [[0, 1, 0, 0, 0, 0],
+           [1, 0, 1, 0, 0, 0],
+           [0, 1, 0, 1, 0, 0],
+           [0, 0, 1, 0, 1, 0],
+           [0, 0, 0, 1, 0, 1],
+           [0, 0, 0, 0, 1, 0]]
+sensitive_hosts:
+  (1, 0): 100
+  (3, 0): 100
+os:
+  - linux
+  - windows
+services:
+  - ssh
+  - http
+processes:
+  - tomcat
+  - apache
+  - iis
+exploits:
+  e_ssh:
+    service: ssh
+    os: linux
+    prob: 0.8
+    cost: 1
+    access: user
+  e_http:
+    service: http
+    os: windows
+    prob: 0.7
+    cost: 1
+    access: user
+privilege_escalation:
+  pe_tomcat:
+    process: tomcat
+    os: linux
+    prob: 1.0
+    cost: 1
+    access: root
+  pe_apache:
+    process: apache  
+    os: windows
+    prob: 0.9
+    cost: 1
+    access: root
+service_scan_cost: 1
+os_scan_cost: 1
+subnet_scan_cost: 1
+process_scan_cost: 1
+host_configurations:
+  (1, 0):
+    os: linux
+    services: [ssh, http]
+    processes: [tomcat, apache]
+    firewall:
+      (2, 0): [ssh]
+  (2, 0):
+    os: windows
+    services: [http]
+    processes: [apache, iis]
+    firewall:
+      (1, 0): [http]
+      (3, 0): [http]
+  (3, 0):
+    os: linux
+    services: [ssh]
+    processes: [tomcat]
+    firewall:
+      (4, 0): [ssh]
+  (4, 0):
+    os: windows
+    services: [http]
+    processes: [apache, iis]
+    firewall:
+      (5, 0): [http]
+  (5, 0):
+    os: linux
+    services: [ssh]
+    processes: [tomcat]
+    firewall:
+      (1, 0): [ssh]
+firewall:
+  (0, 1): [ssh, http]
+  (1, 0): []
+  (0, 2): []
+  (2, 0): [ssh]
+  (0, 3): []
+  (3, 0): []
+  (0, 4): []
+  (4, 0): [http]
+  (0, 5): [ssh]
+  (5, 0): []
+  (1, 2): [ssh, http]
+  (2, 1): [http]
+  (1, 3): []
+  (3, 1): [ssh]
+  (1, 4): []
+  (4, 1): [http]
+  (1, 5): []
+  (5, 1): []
+  (2, 3): [ssh]
+  (3, 2): [http]
+  (2, 4): []
+  (4, 2): []
+  (2, 5): [ssh]
+  (5, 2): []
+  (3, 4): [ssh, http]
+  (4, 3): [http]
+  (3, 5): []
+  (5, 3): []
+  (4, 5): [ssh, http]
+  (5, 4): []
+step_limit: 1000",Success
+"subnets: [1, 1, 1, 1, 1, 1]
+topology: [[0, 0, 0, 0, 1, 0],
+           [0, 0, 0, 0, 0, 1],
+           [0, 0, 0, 1, 0, 0],
+           [0, 0, 1, 0, 0, 0],
+           [1, 0, 0, 0, 0, 0],
+           [0, 1, 0, 0, 0, 0]]
+sensitive_hosts:
+  (3, 0): 100
+  (5, 0): 100
+os:
+  - linux
+  - windows
+services:
+  - ssh
+  - http
+processes:
+  - tomcat
+  - apache
+  - iis
+exploits:
+  e_ssh:
+    service: ssh
+    os: linux
+    prob: 0.8
+    cost: 1
+    access: user
+  e_http:
+    service: http
+    os: windows
+    prob: 0.7
+    cost: 1
+    access: user
+privilege_escalation:
+  pe_tomcat:
+    process: tomcat
+    os: linux
+    prob: 1.0
+    cost: 1
+    access: root
+  pe_iis:
+    process: iis
+    os: windows
+    prob: 0.9
+    cost: 1
+    access: root
+service_scan_cost: 1
+os_scan_cost: 1
+subnet_scan_cost: 1
+process_scan_cost: 1
+host_configurations:
+  (1, 0):
+    os: linux
+    services: [ssh, http]
+    processes: [tomcat, apache]
+    firewall:
+      (3, 0): [ssh, http]
+  (2, 0):
+    os: windows
+    services: [http]
+    processes: [apache, iis]
+    firewall:
+      (1, 0): [http]
+      (4, 0): [http]
+  (3, 0):
+    os: linux
+    services: [ssh]
+    processes: [tomcat]
+    firewall:
+      (4, 0): [ssh]
+  (4, 0):
+    os: windows
+    services: [http]
+    processes: [apache, iis]
+    firewall:
+      (5, 0): [http]
+  (5, 0):
+    os: linux
+    services: [ssh]
+    processes: [tomcat]
+    firewall:
+      (1, 0): [ssh]
+firewall:
+  (0, 1): [ssh, http]
+  (1, 0): []
+  (0, 2): []
+  (2, 0): [ssh]
+  (0, 3): []
+  (3, 0): []
+  (0, 4): []
+  (4, 0): [http]
+  (0, 5): []
+  (5, 0): []
+  (1, 2): [ssh, http]
+  (2, 1): [http]
+  (1, 3): []
+  (3, 1): [ssh]
+  (1, 4): []
+  (4, 1): [http]
+  (1, 5): []
+  (5, 1): []
+  (2, 3): []
+  (3, 2): []
+  (2, 4): [http]
+  (4, 2): []
+  (2, 5): [ssh]
+  (5, 2): []
+  (3, 4): [ssh, http]
+  (4, 3): [http]
+  (3, 5): []
+  (5, 3): []
+  (4, 5): [ssh, http]
+  (5, 4): []
+step_limit: 1000",Error
+"subnets: [1, 1, 1, 1, 1]
+topology: [[0, 1, 0, 0, 0, 0],
+           [1, 0, 1, 0, 0, 0],
+           [0, 1, 0, 1, 0, 0],
+           [0, 0, 1, 0, 1, 0],
+           [0, 0, 0, 1, 0, 1],
+           [0, 0, 0, 0, 1, 0]]
+sensitive_hosts:
+  (2, 0): 100
+  (4, 0): 100
+os:
+  - linux
+  - windows
+services:
+  - ssh
+  - http
+processes:
+  - tomcat
+  - apache
+  - iis
+exploits:
+  e_ssh:
+    service: ssh
+    os: linux
+    prob: 0.8
+    cost: 1
+    access: user
+  e_http:
+    service: http
+    os: windows
+    prob: 0.7
+    cost: 1
+    access: user
+privilege_escalation:
+  pe_tomcat:
+    process: tomcat
+    os: linux
+    prob: 1.0
+    cost: 1
+    access: root
+service_scan_cost: 1
+os_scan_cost: 1
+subnet_scan_cost: 1
+process_scan_cost: 1
+host_configurations:
+  (1, 0):
+    os: linux
+    services: [ssh]
+    processes: [tomcat]
+    firewall:
+      (2, 0): [ssh]
+  (2, 0):
+    os: windows
+    services: [http, ssh]
+    processes: [apache, iis]
+    firewall:
+      (1, 0): [http]
+      (3, 0): [http, ssh]
+  (3, 0):
+    os: linux
+    services: [ssh]
+    processes: [tomcat, iis]
+    firewall:
+      (4, 0): [ssh]
+  (4, 0):
+    os: windows
+    services: [http]
+    processes: [apache]
+    firewall:
+      (5, 0): [http]
+  (5, 0):
+    os: linux
+    services: [ssh]
+    processes: [tomcat]
+    firewall:
+      (4, 0): [ssh]
+firewall:
+  (0, 1): [ssh]
+  (1, 0): []
+  (0, 2): []
+  (2, 0): [ssh]
+  (0, 3): []
+  (3, 0): []
+  (0, 4): []
+  (4, 0): [http]
+  (0, 5): []
+  (5, 0): []
+  (1, 2): [ssh, http]
+  (2, 1): [http]
+  (1, 3): []
+  (3, 1): [ssh]
+  (1, 4): []
+  (4, 1): [http]
+  (1, 5): []
+  (5, 1): []
+  (2, 3): [ssh]
+  (3, 2): [http]
+  (2, 4): [http]
+  (4, 2): []
+  (2, 5): [ssh]
+  (5, 2): []
+  (3, 4): [ssh, http]
+  (4, 3): [http]
+  (3, 5): []
+  (5, 3): []
+  (4, 5): [ssh, http]
+  (5, 4): []
+step_limit: 1000",Success
